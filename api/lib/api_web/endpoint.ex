@@ -4,10 +4,11 @@ defmodule ApiWeb.Endpoint do
   # The session will be stored in the cookie and signed,
   # this means its contents can be read but not tampered with.
   # Set :encryption_salt if you would also like to encrypt it.
+
   @session_options [
-    store: :cookie,
-    key: "_api_key",
-    signing_salt: "SgVA8G6a"
+    store: Application.get_env(:api, :session_store, :cookie),
+    key: Application.get_env(:api, :session_key, "__session_key"),
+    signing_salt: Application.get_env(:api, :session_signing_salt, "__session_signing_salt")
   ]
 
   socket "/socket", ApiWeb.UserSocket,
@@ -50,5 +51,6 @@ defmodule ApiWeb.Endpoint do
   plug Plug.MethodOverride
   plug Plug.Head
   plug Plug.Session, @session_options
+  plug ApiWeb.CORS
   plug ApiWeb.Router
 end

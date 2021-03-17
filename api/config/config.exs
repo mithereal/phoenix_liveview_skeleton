@@ -7,16 +7,27 @@
 # General application configuration
 use Mix.Config
 
+signing_salt = "4532fds242"
+session_key = "fsdfsdce54"
+secret_key_base = "4rIGvcjT1Li5zkXo0ZIEjoaSKzDfhCiMVKvgOjinBRT2J1wJxUkNsCGlZd0PfD8+"
+host = "localhost"
+
 config :api,
   ecto_repos: [Api.Repo]
 
 # Configures the endpoint
 config :api, ApiWeb.Endpoint,
-  url: [host: "localhost"],
-  secret_key_base: "R9ircWFnI8E7m5COzKOMu2K2wdIk2GLomueQtHcZQ5tUMokBKydsFX8oKfmqZ6gW",
+  url: [host: host],
+  secret_key_base: secret_key_base,
   render_errors: [view: ApiWeb.ErrorView, accepts: ~w(html json), layout: false],
   pubsub_server: Api.PubSub,
-  live_view: [signing_salt: "+iQUQXu2"]
+  live_view: [signing_salt: signing_salt],
+  session_signing_salt: signing_salt,
+  session_key: session_key,
+  session_store: :cookie,
+  origins: [host],
+  allow_credentials: true,
+  max_age: 600
 
 # Configures Elixir's Logger
 config :logger, :console,

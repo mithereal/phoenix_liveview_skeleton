@@ -1,5 +1,7 @@
 # Api
 
+This is a liveview with auth demo mostly lifted from https://github.com/leanpanda-com/liveview-authorisation but reorganized to be a generalized starter skeleton
+
 To start your Phoenix server:
 
   * Install dependencies with `mix deps.get`
