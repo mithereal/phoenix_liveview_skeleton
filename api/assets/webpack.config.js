@@ -9,6 +9,7 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 const FileManagerPlugin = require('filemanager-webpack-plugin');
 const ImageminWebpWebpackPlugin = require("imagemin-webp-webpack-plugin");
 const BrotliPlugin = require('brotli-webpack-plugin');
+const webpack = require('webpack');
 
 const handler = (percentage, message, ...args) => {
     // e.g. Output each progress message directly to the console:

@@ -1,65 +1,30 @@
 <!DOCTYPE html>
-<html class="no-js" lang="en" prefix="og: https://ogp.me/ns#">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0, minimum-scale = 1, maximum-scale = 1, user-scalable = no">
-    <meta name="author" content="@mithereal">
-    <meta name="description" content="description here">
-    <meta name="keywords" content="keywords,here">
-    <meta name="robots" content="noindex, nofollow">
-    <meta name="application-name" content="">
-    <meta name="msapplication-starturl" content="http://www.xxx.com/">
-
-    <meta property="og:type" content="website"/>
-    <meta property="og:title" content=""/>
-    <meta property="og:url" content="https://xxx.com/"/>
-    <meta property="og:image" content="https://xxx.com/images/api_richSnippet.png"/>
-    <meta property="og:description" content=""/>
-    <meta property="og:locale" content="en_US"/>
-
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <%= csrf_meta_tag() %>
     <%= live_title_tag assigns[:page_title] || "App", suffix: " · Phoenix Framework" %>
-
     <link phx-track-static rel="stylesheet" href="<%= Routes.static_path(@conn, "/css/app.css") %>"/>
-    <link rel="shortcut icon" href="<%= Routes.static_path(@conn, "/images/favicon.png") %>"/>
     <script defer phx-track-static type="text/javascript" src="<%= Routes.static_path(@conn, "/js/app.js") %>"></script>
-
-</head>
-<body>
-<header>
-
-    <section class="container">
+  </head>
+  <body>
+    <header>
+      <section class="container">
         <nav role="navigation">
-            <ul>
-                <%= if function_exported?(Routes, :live_dashboard_path, 2) do %>
-                <li><%= link "LiveDashboard", to: Routes.live_dashboard_path(@conn, :home) %></li>
-                <% end %>
-            </ul>
-            <%= render "_user_menu.html", assigns %>
+          <ul>
+            <%= if function_exported?(Routes, :live_dashboard_path, 2) do %>
+              <li><%= link "LiveDashboard", to: Routes.live_dashboard_path(@conn, :home) %></li>
+            <% end %>
+          </ul>
+          <%= render "_user_menu.html", assigns %>
         </nav>
-        <a href="#" class="phx-logo">
-            <img src="<%= Routes.static_path(@conn, "/images/logo.png") %>" alt="Site Logo"/>
+        <a href="https://phoenixframework.org/" class="phx-logo">
+          <img src="<%= Routes.static_path(@conn, "/images/phoenix.png") %>" alt="Phoenix Framework Logo"/>
         </a>
-    </section>
-
-</header>
-
-<%= @inner_content %>
-
-<footer>
-
-    <div class="copyright">© 2020 -
-        <script>document.write(new Date().getFullYear())</script>
-        . All Rights Reserved.
-    </div>
-
-    <section class="disclaimers">
-        <div></div>
-    </section>
-
-</footer>
-</body>
+      </section>
+    </header>
+    <%= @inner_content %>
+  </body>
 </html>
