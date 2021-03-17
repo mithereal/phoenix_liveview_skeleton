@@ -27,6 +27,20 @@ defmodule Api.Accounts do
   end
 
   @doc """
+  Counts Users.
+
+  ## Examples
+
+
+      iex> count_users
+      0
+
+  """
+  def count_users() do
+    Repo.aggregate(from(i in "users"), :count, :id)
+  end
+
+  @doc """
   Gets a user by email and password.
 
   ## Examples

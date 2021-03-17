@@ -1,18 +1,30 @@
 defmodule ApiWeb.AdminDashboardLive do
-
   use ApiWeb, :live_view
   use ApiWeb, :user_auth
 
+  @minute_ticks 60000
+
   @impl true
   def mount(_params, session, socket) do
-        socket = assign_defaults(session, socket)
+    {uptime, _} = :erlang.statistics(:wall_clock)
+    uptime = Float.ceil(uptime / @minute_ticks)
+    active_users = Enum.count(Api.User.Server.Supervisor.list())
+    total_users = Api.Accounts.count_users()
+    socket = assign_defaults(session, socket)
+    socket = assign(socket, :uptime, uptime)
+    socket = assign(socket, :active_users, active_users)
+    socket = assign(socket, :total_users, total_users)
+
+    if connected?(socket), do: Api.Admin.subscribe("Admin", "Admin")
+
+     Process.send_after(self(), {:tick, socket}, @minute_ticks)
     {:ok, socket}
   end
 
   @impl true
   def render(assigns) do
     ~L"""
-<script src="/js/chart.js"></script>
+    <script src="/js/chart.js"></script>
 
     <div class="main-content flex-1 bg-gray-100 mt-12 md:mt-2 pb-24 md:pb-5">
 
@@ -47,7 +59,7 @@ defmodule ApiWeb.AdminDashboardLive do
                             </div>
                             <div class="flex-1 text-right md:text-center">
                                 <h5 class="font-bold uppercase text-gray-600">Total Users</h5>
-                                <h3 class="font-bold text-3xl">249 <span class="text-pink-500"><i class="fas fa-exchange-alt"></i></span></h3>
+                                <h3 class="font-bold text-3xl"><%= @total_users  %>  <span class="text-pink-500"><i class="fas fa-exchange-alt"></i></span></h3>
                             </div>
                         </div>
                     </div>
@@ -55,14 +67,14 @@ defmodule ApiWeb.AdminDashboardLive do
                 </div>
                 <div class="w-full md:w-1/2 xl:w-1/3 p-6">
                     <!--Metric Card-->
-                    <div class="bg-gradient-to-b from-yellow-200 to-yellow-100 border-b-4 border-yellow-600 rounded-lg shadow-xl p-5">
+                    <div class="bg-gradient-to-b from-green-200 to-green-100 border-b-4 border-yellow-600 rounded-lg shadow-xl p-5">
                         <div class="flex flex-row items-center">
                             <div class="flex-shrink pr-4">
                                 <div class="rounded-full p-5 bg-yellow-600"><i class="fas fa-user-plus fa-2x fa-inverse"></i></div>
                             </div>
                             <div class="flex-1 text-right md:text-center">
-                                <h5 class="font-bold uppercase text-gray-600">New Users</h5>
-                                <h3 class="font-bold text-3xl">2 <span class="text-yellow-600"><i class="fas fa-caret-up"></i></span></h3>
+                                <h5 class="font-bold uppercase text-gray-600">Active Users</h5>
+                                <h3 class="font-bold text-3xl"><%= @active_users  %> <span class="text-yellow-600"><i class="fas fa-caret-up"></i></span></h3>
                             </div>
                         </div>
                     </div>
@@ -77,7 +89,7 @@ defmodule ApiWeb.AdminDashboardLive do
                             </div>
                             <div class="flex-1 text-right md:text-center">
                                 <h5 class="font-bold uppercase text-gray-600">Server Uptime</h5>
-                                <h3 class="font-bold text-3xl">152 days</h3>
+                                <h3 class="font-bold text-3xl"><%= @uptime  %> Minutes</h3>
                             </div>
                         </div>
                     </div>
@@ -302,10 +314,6 @@ defmodule ApiWeb.AdminDashboardLive do
                         </div>
                         <div class="p-5 text-center">
 
-
-                            <script async="" type="text/javascript" src="//cdn.carbonads.com/carbon.js?serve=CK7D52JJ&amp;placement=wwwtailwindtoolboxcom" id="_carbonads_js"></script><div id="carbonads"><span><span class="carbon-wrap"><a href="https://srv.carbonads.net/ads/click/x/GTND42JJCWAIK2QWCTYLYKQNC6SDC2JECYAD6Z3JCYYIKK7LCWBIVK7KC67DVKQECK7ICKQMCABD42QWCWSD65Q7HEYIKKQMF6SIPKJECTNCYBZ52K?segment=placement:wwwtailwindtoolboxcom;" class="carbon-img" target="_blank" rel="noopener sponsored"><img src="https://cdn4.buysellads.net/uu/1/50798/1565723204-1548360785-Authentic2.jpg" alt="ads via Carbon" border="0" height="100" width="130" style="max-width: 130px;"></a><a href="https://srv.carbonads.net/ads/click/x/GTND42JJCWAIK2QWCTYLYKQNC6SDC2JECYAD6Z3JCYYIKK7LCWBIVK7KC67DVKQECK7ICKQMCABD42QWCWSD65Q7HEYIKKQMF6SIPKJECTNCYBZ52K?segment=placement:wwwtailwindtoolboxcom;" class="carbon-text" target="_blank" rel="noopener sponsored">Your new development career awaits. Check out the latest listings.</a></span><a href="http://carbonads.net/?utm_source=wwwtailwindtoolboxcom&amp;utm_medium=ad_via_link&amp;utm_campaign=in_unit&amp;utm_term=carbon" class="carbon-poweredby" target="_blank" rel="noopener sponsored">ads via Carbon</a></span></div>
-
-
                         </div>
                     </div>
                     <!--/Advert Card-->
@@ -315,4 +323,28 @@ defmodule ApiWeb.AdminDashboardLive do
             </div>
     """
   end
+
+    def handle_info({_requesting_module, [:data, :updated], %{active_users: active_users, total_users: total_users}}, socket) do
+
+   socket = assign(socket, :active_users, Enum.count(active_users))
+
+    socket = assign(socket, :total_users, total_users)
+
+    {:noreply, socket}
+  end
+
+  def handle_info({:tick, socket}, state) do
+
+{uptime, _} = :erlang.statistics(:wall_clock)
+
+    uptime = Float.ceil(uptime / @minute_ticks)
+
+    socket = assign(socket, :uptime, uptime)
+
+     Process.send_after(self(), {:tick, socket}, @minute_ticks)
+
+    {:noreply, socket}
+  end
+
+
 end

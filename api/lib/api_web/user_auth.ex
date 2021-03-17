@@ -30,6 +30,8 @@ defmodule ApiWeb.UserAuth do
     token = Accounts.generate_user_session_token(user)
     user_return_to = get_session(conn, :user_return_to)
 
+    Api.User.Server.Supervisor.start()
+
     conn
     |> renew_session()
     |> put_session(:user_token, token)

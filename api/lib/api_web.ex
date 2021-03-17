@@ -65,7 +65,6 @@ defmodule ApiWeb do
     end
   end
 
-
   def live_component do
     quote do
       use Phoenix.LiveComponent

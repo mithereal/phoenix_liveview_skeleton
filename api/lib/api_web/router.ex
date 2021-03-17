@@ -82,7 +82,7 @@ defmodule ApiWeb.Router do
   end
 
   pipeline :admin do
-     plug EnsureRole, :admin
+    plug EnsureRole, :admin
   end
 
   ## Authentication routes
