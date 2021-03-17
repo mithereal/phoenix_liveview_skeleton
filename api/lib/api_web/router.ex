@@ -12,12 +12,12 @@ defmodule ApiWeb.Router do
     plug :protect_from_forgery
     plug :put_secure_browser_headers
     plug :fetch_current_user
-    plug(Smlr)
+    plug(Smlr, enable: false)
   end
 
   pipeline :api do
     plug :accepts, ["json"]
-    plug(Smlr)
+    plug(Smlr, enable: false)
   end
 
   pipeline :api_disabled do
@@ -60,9 +60,8 @@ defmodule ApiWeb.Router do
   end
 
   pipeline :admin do
-    plug EnsureRole, :admin
+    # plug EnsureRole, :admin
   end
-
 
   ## Authentication routes
 
@@ -77,7 +76,6 @@ defmodule ApiWeb.Router do
     post "/users/reset_password", UserResetPasswordController, :create
     get "/users/reset_password/:token", UserResetPasswordController, :edit
     put "/users/reset_password/:token", UserResetPasswordController, :update
-
   end
 
   scope "/", ApiWeb do
@@ -100,7 +98,6 @@ defmodule ApiWeb.Router do
     get "/users/confirm", UserConfirmationController, :new
     post "/users/confirm", UserConfirmationController, :create
     get "/users/confirm/:token", UserConfirmationController, :confirm
-
   end
 
   scope "/", ApiWeb do
@@ -114,7 +111,6 @@ defmodule ApiWeb.Router do
 
     live "/admin_dashboard", AdminDashboardLive
   end
-
 
   # Other scopes may use custom stacks.
 

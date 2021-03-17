@@ -3,8 +3,19 @@ defmodule ApiWeb.UserDashboardLive do
   use ApiWeb, :user_auth
 
   @impl true
+  def handle_info(%{event: "logout_user", payload: %{user: %User{id: id}}}, socket) do
+    with %User{id: ^id} <- socket.assigns.current_user do
+      {:noreply,
+       socket
+       |> redirect(to: Routes.user_session_path(socket, :force_logout))}
+    else
+      _any -> {:noreply, socket}
+    end
+  end
+
+  @impl true
   def mount(_params, session, socket) do
-    socket = UserAuth.assign_defaults(session, socket)
+    socket = assign_defaults(session, socket)
     {:ok, socket}
   end
 

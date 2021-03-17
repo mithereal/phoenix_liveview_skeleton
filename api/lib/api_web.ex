@@ -42,10 +42,10 @@ defmodule ApiWeb do
     end
   end
 
-  def live_view(layout \\ "live") do
+  def live_view do
     quote do
       use Phoenix.LiveView,
-        layout: {ApiWeb.LayoutView, unquote(layout) <> ".html"}
+        layout: {ApiWeb.LayoutView, "live.html"}
 
       unquote(view_helpers())
 
@@ -103,7 +103,7 @@ defmodule ApiWeb do
     Phoenix.render(ApiWeb.PartialsView, template, assigns)
   end
 
-  defp view_helpers do
+  def view_helpers do
     quote do
       # Use all HTML functionality (forms, tags, etc)
       use Phoenix.HTML
@@ -119,7 +119,6 @@ defmodule ApiWeb do
       alias ApiWeb.Router.Helpers, as: Routes
     end
   end
-
 
   @doc """
   When used, dispatch to the appropriate controller/view/etc.
