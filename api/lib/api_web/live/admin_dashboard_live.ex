@@ -16,7 +16,7 @@ defmodule ApiWeb.AdminDashboardLive do
     socket = assign(socket, :total_users, total_users)
 #    socket = assign(socket, :last_visited, __MODULE__)
 
-    if connected?(socket), do: Api.Admin.subscribe("Admin", "Admin")
+    if connected?(socket), do: Api.Admin.subscribe("Admin", "Dashboard")
 
      Process.send_after(self(), {:tick, socket}, @minute_ticks)
     {:ok, socket}

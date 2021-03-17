@@ -1,11 +1,10 @@
-defmodule Api.User.Server.Supervisor do
+defmodule Api.Error.Server.Supervisor do
   use DynamicSupervisor
 
-  alias Api.User.Server.Supervisor, as: SUPERVISOR
-  alias Api.User.Server, as: SERVER
+  alias Api.Error.Server.Supervisor, as: SUPERVISOR
+  alias Api.Error.Server, as: SERVER
 
-  @registry_name :user_registry
-  @name :user_supervisor
+  @name :error_supervisor
 
   def child_spec(_) do
     %{
@@ -29,20 +28,15 @@ defmodule Api.User.Server.Supervisor do
   end
 
 
-  def start(hash \\ nil) do
-    hash =
-      case hash do
-        nil -> Base.encode16(:crypto.strong_rand_bytes(8))
-        _ -> hash
-      end
+  def start() do
 
-      user = %{hash: hash}
+      errors = %{errors: []}
 
-    child_spec = {Api.User.Server, user}
+    child_spec = {Api.Error.Server, errors}
 
     DynamicSupervisor.start_child(@name, child_spec)
 
- Task.async(fn -> Api.Admin.refresh_users() end)
+ Task.async(fn -> Api.Admin.refresh_errors() end)
 
 
     {:ok, "success"}

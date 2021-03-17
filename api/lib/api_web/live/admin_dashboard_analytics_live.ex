@@ -7,16 +7,18 @@ defmodule ApiWeb.AdminDashboardAnalyticsLive do
   @impl true
   def mount(_params, session, socket) do
     {uptime, _} = :erlang.statistics(:wall_clock)
-    uptime = Float.ceil(uptime / @minute_ticks)
+    uptime = Float.round(uptime / @minute_ticks,0)
     active_users = Enum.count(Api.User.Server.Supervisor.list())
     total_users = Api.Accounts.count_users()
     socket = assign_defaults(session, socket)
     socket = assign(socket, :uptime, uptime)
     socket = assign(socket, :active_users, active_users)
     socket = assign(socket, :total_users, total_users)
+      socket = assign(socket, :total_errors, 0)
 #    socket = assign(socket, :last_visited, __MODULE__)
 
-    if connected?(socket), do: Api.Admin.subscribe("Admin", "Admin")
+    if connected?(socket), do: Api.Admin.subscribe("Admin", "Analytics")
+    if connected?(socket), do: Api.Admin.subscribe("Admin", "Errors")
 
      Process.send_after(self(), {:tick, socket}, @minute_ticks)
     {:ok, socket}
@@ -26,6 +28,7 @@ defmodule ApiWeb.AdminDashboardAnalyticsLive do
   def render(assigns) do
     ~L"""
        <%=  live_component(@socket,  ApiWeb.AnalyticsComponent, assigns) %>
+
     """
   end
 
@@ -38,11 +41,19 @@ defmodule ApiWeb.AdminDashboardAnalyticsLive do
     {:noreply, socket}
   end
 
+      def handle_info({_requesting_module, [:data, :updated], %{errors: errors}}, socket) do
+
+   socket = assign(socket, :total_errors, Enum.count(errors))
+
+    {:noreply, socket}
+  end
+
+
   def handle_info({:tick, socket}, state) do
 
 {uptime, _} = :erlang.statistics(:wall_clock)
 
-    uptime = Float.ceil(uptime / @minute_ticks)
+    uptime = Float.round(uptime / @minute_ticks, 0)
 
     socket = assign(socket, :uptime, uptime)
 

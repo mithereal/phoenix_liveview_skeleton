@@ -39,7 +39,7 @@ defmodule Api.User.Server do
     initial_state = %__MODULE__{
       user: user
     }
-
+Logger.info "Started: User Server"
     {:ok, initial_state}
   end
 
@@ -79,6 +79,7 @@ defmodule Api.User.Server do
         _from,
         state
       ) do
+       Task.async(fn -> Api.Admin.refresh_users() end)
     {:stop, {:ok, "User Server Normal Shutdown"}, state.user.hash}
   end
 
@@ -86,6 +87,7 @@ defmodule Api.User.Server do
         :shutdown,
         state
       ) do
+       Task.async(fn -> Api.Admin.refresh_users() end)
     {:stop, :normal, state}
   end
 

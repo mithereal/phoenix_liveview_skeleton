@@ -33,7 +33,17 @@ defmodule Api.Admin do
     users = list_users()
     total_users =  Api.Accounts.count_users()
    params = %{active_users: users, total_users: total_users }
-    notify({:ok, params}, "Admin", "Admin")
+    notify({:ok, params}, "Admin", "Dashboard")
+    notify({:ok, params}, "Admin", "Analytics")
+    notify({:ok, params}, "Admin", "Users")
+  end
+
+   def refresh_errors() do
+    errors = Api.Error.Server.show()
+   params = %{errors: errors}
+      notify({:ok, params}, "Admin", "Dashboard")
+    notify({:ok, params}, "Admin", "Analytics")
+        notify({:ok, params}, "Admin", "Errors")
   end
 
     def list_db_users(limit \\ 6) do

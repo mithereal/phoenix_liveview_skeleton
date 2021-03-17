@@ -18,3 +18,7 @@ body {
    flex-wrap: wrap;
    align-items: center;
 }
+
+.main-content {
+    margin-left: 2rem;
+}

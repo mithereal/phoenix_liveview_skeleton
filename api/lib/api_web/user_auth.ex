@@ -30,11 +30,12 @@ defmodule ApiWeb.UserAuth do
     token = Accounts.generate_user_session_token(user)
     user_return_to = get_session(conn, :user_return_to)
 
-    Api.User.Server.Supervisor.start()
+    Api.User.Server.Supervisor.start(user.email)
 
     conn
     |> renew_session()
     |> put_session(:user_token, token)
+    |> put_session(:user, user)
     |> put_session(:live_socket_id, "users_sessions:#{Base.url_encode64(token)}")
     |> maybe_write_remember_me_cookie(token, params)
     |> redirect(to: user_return_to || signed_in_path(conn))
@@ -76,11 +77,15 @@ defmodule ApiWeb.UserAuth do
   """
   def log_out_user(conn) do
     user_token = get_session(conn, :user_token)
+    user = get_session(conn, :user)
+
     user_token && Accounts.delete_session_token(user_token)
 
     if live_socket_id = get_session(conn, :live_socket_id) do
       ApiWeb.Endpoint.broadcast(live_socket_id, "disconnect", %{})
     end
+
+     Api.User.Server.Supervisor.stop(user.email)
 
     conn
     |> renew_session()
