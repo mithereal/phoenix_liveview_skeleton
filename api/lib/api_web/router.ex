@@ -12,12 +12,12 @@ defmodule ApiWeb.Router do
     plug :protect_from_forgery
     plug :put_secure_browser_headers
     plug :fetch_current_user
-    plug(Smlr)
+     plug(Smlr, enable: false)
   end
 
   pipeline :api do
     plug :accepts, ["json"]
-    plug(Smlr)
+     plug(Smlr, enable: false)
   end
 
   pipeline :api_disabled do
