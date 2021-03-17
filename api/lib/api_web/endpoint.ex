@@ -13,7 +13,8 @@ defmodule ApiWeb.Endpoint do
 
   socket "/socket", ApiWeb.UserSocket,
     websocket: true,
-    longpoll: false
+    longpoll: false,
+    compress: true
 
   socket "/live", Phoenix.LiveView.Socket, websocket: [connect_info: [session: @session_options]]
 

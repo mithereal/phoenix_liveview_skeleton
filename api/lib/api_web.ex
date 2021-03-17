@@ -120,21 +120,6 @@ defmodule ApiWeb do
     end
   end
 
-  defp live_view_helpers do
-    import ApiWeb.LiveHelpers
-
-    alias Api.Accounts.User
-
-    #      def handle_info(%{event: "logout_user", payload: %{user: %User{id: id}}}, socket) do
-    #        with %User{id: ^id} <- socket.assigns.current_user do
-    #          {:noreply,
-    #           socket
-    #           |> redirect(to: Routes.user_session_path(socket, :force_logout))}
-    #        else
-    #          _any -> {:noreply, socket}
-    #        end
-    #      end
-  end
 
   @doc """
   When used, dispatch to the appropriate controller/view/etc.
