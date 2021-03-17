@@ -6,6 +6,16 @@ const TerserPlugin = require('terser-webpack-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 
+const FileManagerPlugin = require('filemanager-webpack-plugin');
+const webpack = require('webpack');
+const ImageminWebpWebpackPlugin= require("imagemin-webp-webpack-plugin");
+const BrotliPlugin = require('brotli-webpack-plugin');
+
+const handler = (percentage, message, ...args) => {
+  // e.g. Output each progress message directly to the console:
+  console.info(percentage, message, ...args);
+};
+
 module.exports = (env, options) => {
   const devMode = options.mode !== 'production';
 
@@ -41,12 +51,39 @@ module.exports = (env, options) => {
             'css-loader',
             'sass-loader',
           ],
+        },
+         {
+        test: /\.css$/i,
+        loader: "css-loader",
+        options: {
+          import: true,
+          url: false
         }
+      },
+      {
+        test: /\.[s]?css$/,
+        loader: 'postcss-loader',
+      },
+      {
+        test: /\.(jpeg|jpg|png|gif|svg)$/i,
+        loader: 'file-loader',
+
+        options: {
+          name: '[name].[ext]?[hash]'
+        }
+      }
       ]
     },
     plugins: [
-      new MiniCssExtractPlugin({ filename: '../css/app.css' }),
-      new CopyWebpackPlugin([{ from: 'static/', to: '../' }])
+   new MiniCssExtractPlugin({ filename: '../css/app.css' }),
+      new CopyWebpackPlugin([{ from: 'static/', to: '../' }]),
+new BrotliPlugin({
+      asset: '[path].br[query]',
+      test: /\.(js|css|html|svg)$/,
+      threshold: 10240,
+      minRatio: 0.8
+    }),
+    new ImageminWebpWebpackPlugin()
     ]
     .concat(devMode ? [new HardSourceWebpackPlugin()] : [])
   }
