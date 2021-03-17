@@ -12,10 +12,47 @@ defmodule ApiWeb.Router do
     plug :protect_from_forgery
     plug :put_secure_browser_headers
     plug :fetch_current_user
+    plug(Smlr)
   end
 
   pipeline :api do
     plug :accepts, ["json"]
+    plug(Smlr)
+  end
+
+  pipeline :api_disabled do
+    plug(:accepts, ["json"])
+    plug(Smlr, enable: false)
+  end
+
+  pipeline :api_ignore_weight do
+    plug(:accepts, ["json"])
+
+    plug(Smlr,
+      ignore_client_weight: true,
+      compressors: [Smlr.Compressor.Gzip, Smlr.Compressor.Deflate, Smlr.Compressor.Brotli]
+    )
+  end
+
+  pipeline :api_types do
+    plug(:accepts, ["json"])
+
+    plug(Smlr,
+      all_types: false
+    )
+  end
+
+  pipeline :api_cache do
+    plug(:accepts, ["json"])
+
+    plug(Smlr,
+      ignore_client_weight: true,
+      cache_opts: %{
+        enable: true,
+        timeout: :infinity,
+        limit: nil
+      }
+    )
   end
 
   pipeline :user do
