@@ -4,9 +4,9 @@ defmodule ApiWeb.UserComponent do
   @impl true
   def render(assigns) do
   ~L"""
-  <div><%= @user.email %></div>
-    <div><%= @user.role %></div>
-    <div>
+  <div class = "label_cell"><%= @user.email %></div>
+    <div class = "label_cell"><%= @user.role %></div>
+
       <div class="inline-flex">
   <button class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded-l">
    <span> Edit</span>
@@ -15,7 +15,6 @@ defmodule ApiWeb.UserComponent do
     <span>Show</span>
   </button>
 </div>
-    </div>
   """
   end
 
