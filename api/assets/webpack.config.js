@@ -75,6 +75,9 @@ module.exports = (env, options) => {
                 }
             ]
         },
+        externals: {
+            moment: 'moment'
+        },
         plugins: [
             new MiniCssExtractPlugin({filename: '../css/[name].css'}),
             new CopyWebpackPlugin([{from: 'static/', to: '../'}]),

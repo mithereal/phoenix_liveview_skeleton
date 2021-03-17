@@ -129,7 +129,7 @@ defmodule ApiWeb.Router do
   end
 
   scope "/", ApiWeb do
-    pipe_through [:admin_browser, :require_authenticated_user, :admin]
+    pipe_through [:admin_browser, :require_authenticated_user, :user]
 
     live "/admin_dashboard", AdminDashboardLive
   end
