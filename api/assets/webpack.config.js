@@ -27,12 +27,13 @@ module.exports = (env, options) => {
             ]
         },
         entry: {
-            'app': glob.sync('./vendor/**/*.js').concat(['./js/app.js'])
+            root: glob.sync('./vendor/**/*.js').concat(['./js/root.js']),
+            admin: glob.sync('./vendor/**/*.js').concat(['./js/admin.js']),
+            user: glob.sync('./vendor/**/*.js').concat(['./js/user.js'])
         },
         output: {
             filename: '[name].js',
-            path: path.resolve(__dirname, '../priv/static/js'),
-            publicPath: '/js/'
+            path: path.resolve(__dirname, '../priv/static/js')
         },
         devtool: devMode ? 'eval-cheap-module-source-map' : undefined,
         module: {
@@ -75,7 +76,7 @@ module.exports = (env, options) => {
             ]
         },
         plugins: [
-            new MiniCssExtractPlugin({filename: '../css/app.css'}),
+            new MiniCssExtractPlugin({filename: '../css/[name].css'}),
             new CopyWebpackPlugin([{from: 'static/', to: '../'}]),
             new CopyWebpackPlugin([{
                 from: 'node_modules/@fortawesome/fontawesome-free/css/',

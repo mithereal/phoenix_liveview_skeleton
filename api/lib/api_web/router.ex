@@ -15,6 +15,28 @@ defmodule ApiWeb.Router do
     plug(Smlr, enable: false)
   end
 
+  pipeline :admin_browser do
+    plug :accepts, ["html"]
+    plug :fetch_session
+    plug :fetch_live_flash
+    plug :put_root_layout, {ApiWeb.LayoutView, "admin.html"}
+    plug :protect_from_forgery
+    plug :put_secure_browser_headers
+    plug :fetch_current_user
+    plug(Smlr, enable: false)
+  end
+
+  pipeline :user_browser do
+    plug :accepts, ["html"]
+    plug :fetch_session
+    plug :fetch_live_flash
+    plug :put_root_layout, {ApiWeb.LayoutView, "user.html"}
+    plug :protect_from_forgery
+    plug :put_secure_browser_headers
+    plug :fetch_current_user
+    plug(Smlr, enable: false)
+  end
+
   pipeline :api do
     plug :accepts, ["json"]
     plug(Smlr, enable: false)
@@ -60,7 +82,7 @@ defmodule ApiWeb.Router do
   end
 
   pipeline :admin do
-    # plug EnsureRole, :admin
+     plug EnsureRole, :admin
   end
 
   ## Authentication routes
@@ -101,13 +123,13 @@ defmodule ApiWeb.Router do
   end
 
   scope "/", ApiWeb do
-    pipe_through [:browser, :require_authenticated_user, :user]
+    pipe_through [:user_browser, :require_authenticated_user, :user]
 
     live "/user_dashboard", UserDashboardLive
   end
 
   scope "/", ApiWeb do
-    pipe_through [:browser, :require_authenticated_user, :admin]
+    pipe_through [:admin_browser, :require_authenticated_user, :admin]
 
     live "/admin_dashboard", AdminDashboardLive
   end

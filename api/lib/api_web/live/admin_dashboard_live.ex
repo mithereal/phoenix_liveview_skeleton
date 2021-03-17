@@ -1,10 +1,11 @@
 defmodule ApiWeb.AdminDashboardLive do
-  use Phoenix.LiveView, layout: {ApiWeb.LayoutView, "admin.html"}
+
+  use ApiWeb, :live_view
   use ApiWeb, :user_auth
 
   @impl true
   def mount(_params, session, socket) do
-    #    socket = assign_defaults(session, socket)
+        socket = assign_defaults(session, socket)
     {:ok, socket}
   end
 

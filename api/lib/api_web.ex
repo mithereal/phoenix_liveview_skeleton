@@ -65,28 +65,6 @@ defmodule ApiWeb do
     end
   end
 
-  def admin_live_view do
-    quote do
-      use Phoenix.LiveView,
-        layout: {ApiWeb.LayoutView, "admin.html"}
-
-      unquote(view_helpers())
-
-      import ApiWeb.LiveHelpers
-      alias Api.Accounts.User
-
-      @impl true
-      def handle_info(%{event: "logout_user", payload: %{user: %User{id: id}}}, socket) do
-        with %User{id: ^id} <- socket.assigns.current_user do
-          {:noreply,
-           socket
-           |> redirect(to: Routes.user_session_path(socket, :force_logout))}
-        else
-          _any -> {:noreply, socket}
-        end
-      end
-    end
-  end
 
   def live_component do
     quote do

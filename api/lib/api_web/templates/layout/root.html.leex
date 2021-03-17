@@ -6,8 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <%= csrf_meta_tag() %>
     <%= live_title_tag assigns[:page_title] || "App", suffix: " · Phoenix Framework" %>
-    <link phx-track-static rel="stylesheet" href="<%= Routes.static_path(@conn, "/css/app.css") %>"/>
-    <script defer phx-track-static type="text/javascript" src="<%= Routes.static_path(@conn, "/js/app.js") %>"></script>
+    <link phx-track-static rel="stylesheet" href="<%= Routes.static_path(@conn, "/css/root.css") %>"/>
+    <script defer phx-track-static type="text/javascript" src="<%= Routes.static_path(@conn, "/js/root.js") %>"></script>
   </head>
   <body>
     <header>
@@ -20,8 +20,8 @@
           </ul>
           <%= render "_user_menu.html", assigns %>
         </nav>
-        <a href="https://phoenixframework.org/" class="phx-logo">
-          <img src="<%= Routes.static_path(@conn, "/images/phoenix.png") %>" alt="Phoenix Framework Logo"/>
+        <a href="https://xxx.org/" class="phx-logo">
+          <img src="<%= Routes.static_path(@conn, "/images/logo.png") %>" alt="Application Logo"/>
         </a>
       </section>
     </header>
