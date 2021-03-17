@@ -14,9 +14,9 @@ defmodule ApiWeb.Endpoint do
   socket "/socket", ApiWeb.UserSocket,
     websocket: true,
     longpoll: false,
-    compress: true
+    compress: false
 
-  socket "/live", Phoenix.LiveView.Socket, websocket: [connect_info: [session: @session_options]]
+  socket "/live", Phoenix.LiveView.Socket, websocket: [:compress false, connect_info: [session: @session_options]]
 
   # Serve at "/" the static files from "priv/static" directory.
   #
