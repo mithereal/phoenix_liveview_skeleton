@@ -132,6 +132,8 @@ defmodule ApiWeb.Router do
     pipe_through [:admin_browser, :require_authenticated_user, :user]
 
     live "/admin_dashboard", AdminDashboardLive
+    live "/admin_dashboard/analytics", AdminDashboardAnalyticsLive
+    live "/admin_dashboard/accounts", AdminDashboardAccountsLive
   end
 
   # Other scopes may use custom stacks.

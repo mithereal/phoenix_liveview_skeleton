@@ -36,6 +36,15 @@ defmodule Api.Admin do
     notify({:ok, params}, "Admin", "Admin")
   end
 
+    def list_db_users(limit \\ 6) do
+    hash_list = Api.User.Server.Supervisor.list()
+
+    Enum.map(hash_list, fn x ->
+      {_, user} = Api.User.Server.show(x)
+      user
+    end)
+  end
+
   @doc """
   Gets a single user.
 

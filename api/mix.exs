@@ -55,6 +55,7 @@ defmodule Api.MixProject do
       {:corsica, "~> 1.1"},
       {:bypass, "~> 2.1"},
       {:smlr, git: "git://github.com/data-twister/smlr.git"},
+      {:scrivener_ecto, "~> 2.0"},
       {:phx_gen_auth, "~> 0.6", only: [:dev], runtime: false}
     ]
   end

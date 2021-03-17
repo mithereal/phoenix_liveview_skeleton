@@ -1,4 +1,4 @@
-defmodule ApiWeb.AdminDashboardLive do
+defmodule ApiWeb.AdminDashboardAnalyticsLive do
   use ApiWeb, :live_view
   use ApiWeb, :user_auth
 
