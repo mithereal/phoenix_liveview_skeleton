@@ -29,7 +29,7 @@ config :api, ApiWeb.Endpoint,
   allow_credentials: true,
   max_age: 600
 
-config :smlr, cache_opts: %{enable: true, timeout: :infinity, limit: nil}
+config :smlr, cache_opts: %{enable: false, timeout: :infinity, limit: nil}
 
 # Configures Elixir's Logger
 config :logger, :console,
