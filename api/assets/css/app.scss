@@ -1,4 +1,19 @@
 /* This file is for your main application css. */
+@tailwind base;
+
+@tailwind components;
+
+@tailwind utilities;
+
+@layer components {
+  .btn-success {
+    @apply bg-green-700 text-white font-bold py-2 px-4 rounded;
+  }
+  .btn-warning {
+    @apply bg-red-700 text-white font-bold py-2 px-4 rounded;
+  }
+}
+
 @import "./phoenix.css";
 @import '../node_modules/animate.css/animate.css';
 @import "../node_modules/nprogress/nprogress.css";
