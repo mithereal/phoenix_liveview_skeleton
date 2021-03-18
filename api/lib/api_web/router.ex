@@ -87,57 +87,60 @@ defmodule ApiWeb.Router do
 
   ## Authentication routes
 
-  scope "/", ApiWeb do
+  scope "/user", ApiWeb do
     pipe_through [:browser, :redirect_if_user_is_authenticated]
 
-    get "/users/register", UserRegistrationController, :new
-    post "/users/register", UserRegistrationController, :create
-    get "/users/log_in", UserSessionController, :new
-    post "/users/log_in", UserSessionController, :create
-    get "/users/reset_password", UserResetPasswordController, :new
-    post "/users/reset_password", UserResetPasswordController, :create
-    get "/users/reset_password/:token", UserResetPasswordController, :edit
-    put "/users/reset_password/:token", UserResetPasswordController, :update
+    get "/register", UserRegistrationController, :new
+    post "/register", UserRegistrationController, :create
+    get "/log_in", UserSessionController, :new
+    post "/log_in", UserSessionController, :create
+    get "/reset_password", UserResetPasswordController, :new
+    post "/reset_password", UserResetPasswordController, :create
+    get "/reset_password/:token", UserResetPasswordController, :edit
+    put "/reset_password/:token", UserResetPasswordController, :update
 
-      live "/", PageLive
   end
 
-  scope "/", ApiWeb do
+  scope "/user/settings", ApiWeb do
     pipe_through [:browser, :require_authenticated_user]
 
-    get "/users/settings", UserSettingsController, :edit
-    put "/users/settings/update_password", UserSettingsController, :update_password
-    put "/users/settings/update_email", UserSettingsController, :update_email
-    get "/users/settings/confirm_email/:token", UserSettingsController, :confirm_email
+    get "/", UserSettingsController, :edit
+    put "/update_password", UserSettingsController, :update_password
+    put "/update_email", UserSettingsController, :update_email
+    get "/confirm_email/:token", UserSettingsController, :confirm_email
 
- live "/", PageLive
   end
 
-  scope "/", ApiWeb do
+  scope "/user", ApiWeb do
     pipe_through [:browser]
 
-    get "/users/force_logout", UserSessionController, :force_logout
-    get "/users/log_out", UserSessionController, :delete
-    delete "/users/log_out", UserSessionController, :delete
-    get "/users/confirm", UserConfirmationController, :new
-    post "/users/confirm", UserConfirmationController, :create
-    get "/users/confirm/:token", UserConfirmationController, :confirm
+    get "/force_logout", UserSessionController, :force_logout
+    get "/log_out", UserSessionController, :delete
+    delete "/log_out", UserSessionController, :delete
+    get "/confirm", UserConfirmationController, :new
+    post "/confirm", UserConfirmationController, :create
+    get "/confirm/:token", UserConfirmationController, :confirm
 
-     live "/", PageLive
   end
 
   scope "/", ApiWeb do
     pipe_through [:user_browser, :require_authenticated_user, :user]
 
-    live "/home", UserDashboardLive
+    live "/", UserDashboardLive
   end
 
-  scope "/", ApiWeb do
+  scope "/admin", ApiWeb do
     pipe_through [:admin_browser, :require_authenticated_user, :admin]
 
-     live "/home", AdminDashboardLive
+     live "/", AdminDashboardLive
     live "/analytics", AdminDashboardAnalyticsLive
     live "/accounts", AdminDashboardAccountsLive
+  end
+
+    scope "/", ApiWeb do
+    pipe_through [:browser]
+
+    live "/", PageLive
   end
 
   # Other scopes may use custom stacks.
