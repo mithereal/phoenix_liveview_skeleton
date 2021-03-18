@@ -19,7 +19,7 @@ defmodule Api.MixProject do
   # Type `mix help compile.app` for more information.
   def application do
     [
-      mod: {Api.Application, []},
+      mod: {Api.Application, [:legato]},
       extra_applications: [:logger, :runtime_tools]
     ]
   end
@@ -47,6 +47,7 @@ defmodule Api.MixProject do
       {:telemetry_poller, "~> 0.4"},
       {:gettext, "~> 0.11"},
       {:jason, "~> 1.0"},
+      {:tesla, "~> 1.4.0"},
       {:plug_cowboy, "~> 2.0"},
       {:ecto_enum, "~> 1.4"},
       {:plug_attack, "~> 0.4.2"},
@@ -56,6 +57,7 @@ defmodule Api.MixProject do
       {:bypass, "~> 2.1"},
       {:smlr, git: "git://github.com/data-twister/smlr.git"},
       {:scrivener_ecto, "~> 2.0"},
+      {:legato, git: "git@github.com:data-twister/legato-ex.git"},
       {:phx_gen_auth, "~> 0.6", only: [:dev], runtime: false}
     ]
   end

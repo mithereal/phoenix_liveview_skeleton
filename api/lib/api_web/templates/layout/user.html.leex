@@ -11,6 +11,7 @@
     <meta name="robots" content="noindex, nofollow">
     <meta name="application-name" content="">
     <meta name="msapplication-starturl" content="http://www.xxx.com/">
+    <meta name="theme-color" content="#4285f4" />
 
     <meta property="og:type" content="website"/>
     <meta property="og:title" content=""/>
@@ -24,9 +25,10 @@
 
      <link phx-track-static rel="stylesheet" href="<%= Routes.static_path(@conn, "/css/font-awesome/all.css") %>"/>
      <link phx-track-static rel="stylesheet" href="<%= Routes.static_path(@conn, "/css/admin.css") %>"/>
+
     <script defer phx-track-static type="text/javascript" src="<%= Routes.static_path(@conn, "/js/admin.js") %>"></script>
 
-
+ <%= render "_apple_touch_header.html", assigns %>
 
     <link rel="shortcut icon" href="<%= Routes.static_path(@conn, "/images/favicon.png") %>/"/>
 

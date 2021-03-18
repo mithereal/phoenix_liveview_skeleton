@@ -15,20 +15,34 @@ import "phoenix_html"
 import {Socket} from "phoenix"
 import NProgress from "nprogress"
 import {LiveSocket} from "phoenix_live_view"
+
 import Analytics from 'analytics'
 import googleAnalytics from '@analytics/google-analytics'
 
 let csrfToken = document.querySelector("meta[name='csrf-token']").getAttribute("content")
 let liveSocket = new LiveSocket("/live", Socket, {params: {_csrf_token: csrfToken}})
 
-const analytics = Analytics({
-  app: 'awesome-app',
+ if ('serviceWorker' in navigator) {
+   window.addEventListener('load', () => {
+     navigator.serviceWorker.register('/js/service-worker.js').then(registration => {
+       console.log('SW registered: ', registration);
+     }).catch(registrationError => {
+       console.log('SW registration failed: ', registrationError);
+     });
+   });
+ }
+
+let analytics = Analytics({
+  app: 'demo-liveview-app',
   plugins: [
     googleAnalytics({
-      trackingId: 'UA-1234567'
+      trackingId: 'UA-192543999-1'
     })
   ]
 })
+
+
+analytics.page()
 
 
 window.addEventListener("phx:page-loading-start", info => NProgress.start())

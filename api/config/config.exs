@@ -30,6 +30,7 @@ config :api, ApiWeb.Endpoint,
   max_age: 600
 
 config :smlr, cache_opts: %{enable: false, timeout: :infinity, limit: nil}
+config :tesla, adapter: Tesla.Adapter.Hackney
 
 # Configures Elixir's Logger
 config :logger, :console,

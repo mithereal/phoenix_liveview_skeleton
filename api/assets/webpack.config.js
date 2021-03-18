@@ -10,6 +10,7 @@ const FileManagerPlugin = require('filemanager-webpack-plugin');
 const ImageminWebpWebpackPlugin = require("imagemin-webp-webpack-plugin");
 const BrotliPlugin = require('brotli-webpack-plugin');
 const webpack = require('webpack');
+const WorkboxPlugin = require('workbox-webpack-plugin');
 
 const handler = (percentage, message, ...args) => {
     // e.g. Output each progress message directly to the console:
@@ -80,6 +81,10 @@ module.exports = (env, options) => {
         },
         plugins: [
             new MiniCssExtractPlugin({filename: '../css/[name].css'}),
+             new WorkboxPlugin.GenerateSW({
+       clientsClaim: true,
+       skipWaiting: true,
+     }),
             new CopyWebpackPlugin([{from: 'static/', to: '../'}]),
             new CopyWebpackPlugin([{
                 from: 'node_modules/@fortawesome/fontawesome-free/css/',
