@@ -19,20 +19,16 @@ import {LiveSocket} from "phoenix_live_view"
 import Analytics from 'analytics'
 import googleAnalytics from '@analytics/google-analytics'
 
-let csrfToken = document.querySelector("meta[name='csrf-token']").getAttribute("content")
-let liveSocket = new LiveSocket("/live", Socket, {params: {_csrf_token: csrfToken}})
+const csrfToken = document.querySelector("meta[name='csrf-token']").getAttribute("content")
+const liveSocket = new LiveSocket("/live", Socket, {params: {_csrf_token: csrfToken}})
 
  if ('serviceWorker' in navigator) {
    window.addEventListener('load', () => {
-     navigator.serviceWorker.register('/js/service-worker.js').then(registration => {
-       console.log('SW registered: ', registration);
-     }).catch(registrationError => {
-       console.log('SW registration failed: ', registrationError);
-     });
+     navigator.serviceWorker.register('/js/service-worker.js');
    });
  }
 
-let analytics = Analytics({
+const analytics = Analytics({
   app: 'demo-liveview-app',
   plugins: [
     googleAnalytics({
@@ -41,9 +37,7 @@ let analytics = Analytics({
   ]
 })
 
-
 analytics.page()
-
 
 window.addEventListener("phx:page-loading-start", info => NProgress.start())
 window.addEventListener("phx:page-loading-stop", info => NProgress.done())
