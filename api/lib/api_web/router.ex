@@ -98,6 +98,8 @@ defmodule ApiWeb.Router do
     post "/users/reset_password", UserResetPasswordController, :create
     get "/users/reset_password/:token", UserResetPasswordController, :edit
     put "/users/reset_password/:token", UserResetPasswordController, :update
+
+      live "/", PageLive
   end
 
   scope "/", ApiWeb do
@@ -108,7 +110,7 @@ defmodule ApiWeb.Router do
     put "/users/settings/update_email", UserSettingsController, :update_email
     get "/users/settings/confirm_email/:token", UserSettingsController, :confirm_email
 
-    live "/", PageLive, :index
+ live "/", PageLive
   end
 
   scope "/", ApiWeb do
@@ -120,20 +122,22 @@ defmodule ApiWeb.Router do
     get "/users/confirm", UserConfirmationController, :new
     post "/users/confirm", UserConfirmationController, :create
     get "/users/confirm/:token", UserConfirmationController, :confirm
+
+     live "/", PageLive
   end
 
   scope "/", ApiWeb do
     pipe_through [:user_browser, :require_authenticated_user, :user]
 
-    live "/user_dashboard", UserDashboardLive
+    live "/home", UserDashboardLive
   end
 
   scope "/", ApiWeb do
-    pipe_through [:admin_browser, :require_authenticated_user, :user]
+    pipe_through [:admin_browser, :require_authenticated_user, :admin]
 
-    live "/admin_dashboard", AdminDashboardLive
-    live "/admin_dashboard/analytics", AdminDashboardAnalyticsLive
-    live "/admin_dashboard/accounts", AdminDashboardAccountsLive
+     live "/home", AdminDashboardLive
+    live "/analytics", AdminDashboardAnalyticsLive
+    live "/accounts", AdminDashboardAccountsLive
   end
 
   # Other scopes may use custom stacks.
