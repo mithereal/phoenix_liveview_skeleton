@@ -7,6 +7,8 @@
 # General application configuration
 use Mix.Config
 
+config :api, :generators, context_app: :api
+
 signing_salt = "4532fds242"
 session_key = "fsdfsdce54"
 secret_key_base = "4rIGvcjT1Li5zkXo0ZIEjoaSKzDfhCiMVKvgOjinBRT2J1wJxUkNsCGlZd0PfD8+"

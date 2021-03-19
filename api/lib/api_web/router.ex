@@ -123,7 +123,7 @@ defmodule ApiWeb.Router do
 
   end
 
-  scope "/", ApiWeb do
+  scope "/home", ApiWeb do
     pipe_through [:user_browser, :require_authenticated_user, :user]
 
     live "/", UserDashboardLive
