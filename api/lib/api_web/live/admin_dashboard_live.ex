@@ -10,10 +10,12 @@ defmodule ApiWeb.AdminDashboardLive do
     uptime = Float.ceil(uptime / @minute_ticks)
     active_users = Enum.count(Api.User.Server.Supervisor.list())
     total_users = Api.Accounts.count_users()
+    errors = 0
     socket = assign_defaults(session, socket)
     socket = assign(socket, :uptime, uptime)
     socket = assign(socket, :active_users, active_users)
     socket = assign(socket, :total_users, total_users)
+    socket = assign(socket, :total_errors, errors)
 #    socket = assign(socket, :last_visited, __MODULE__)
 
     if connected?(socket), do: Api.Admin.subscribe("Admin", "Dashboard")

@@ -6,11 +6,13 @@ defmodule ApiWeb.AdminDashboardAccountsLive do
 
   @impl true
   def mount(_params, session, socket) do
-    users = Api.Accounts.User |> Api.Repo.all
-    socket = assign_defaults(session, socket)
-    socket = assign(socket, :users, users)
+      users = Api.Accounts.User |> Api.Repo.all
+    total_active_users = Enum.count(Api.User.Server.Supervisor.list())
+    active_users = Api.User.Server.Supervisor.list()
 
-    IO.inspect users
+    socket = assign_defaults(session, socket)
+    socket = assign(socket, :users, active_users)
+    socket = assign(socket, :total_users, total_active_users)
 #    socket = assign(socket, :last_visited, __MODULE__)
 
     if connected?(socket), do: Api.Admin.subscribe("Admin", "Users")
@@ -25,7 +27,7 @@ defmodule ApiWeb.AdminDashboardAccountsLive do
 
 <div class="grid grid-cols-3 md:grid-cols-3">
       <%=  for x <- @users do %>
-       <%=  live_component(@socket,  ApiWeb.UserComponent, user: x) %>
+       <%=  live_component(@socket,  ApiWeb.UserComponent, email: x) %>
        <% end %>
 
  </div>
