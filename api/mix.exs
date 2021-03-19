@@ -58,6 +58,7 @@ defmodule Api.MixProject do
       {:smlr, git: "git://github.com/data-twister/smlr.git"},
       {:scrivener_ecto, "~> 2.0"},
       {:legato, git: "git@github.com:data-twister/legato-ex.git"},
+      {:exgravatar, "~> 2.0"},
       {:phx_gen_auth, "~> 0.6", only: [:dev], runtime: false}
     ]
   end
