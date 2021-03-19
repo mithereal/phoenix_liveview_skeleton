@@ -37,6 +37,7 @@ const analytics = Analytics({
   ]
 })
 
+
 analytics.page()
 
 window.addEventListener("phx:page-loading-start", info => NProgress.start())

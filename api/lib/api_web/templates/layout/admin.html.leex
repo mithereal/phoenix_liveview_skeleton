@@ -31,6 +31,8 @@
     <script defer phx-track-static type="text/javascript" src="<%= Routes.static_path(@conn, "/js/chart.js") %>"></script>
     <script defer phx-track-static type="text/javascript" src="<%= Routes.static_path(@conn, "/js/chart_bundle.js") %>"></script>
 
+       <%= render "_dark_mode.html" %>
+
        <%= render "_apple_touch_header.html", assigns %>
 
     <link rel="shortcut icon" href="<%= Routes.static_path(@conn, "/images/favicon.png") %>/"/>
