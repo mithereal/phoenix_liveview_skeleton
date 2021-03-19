@@ -9,7 +9,7 @@ function toggleTheme() {
    if (localStorage.getItem('theme') === 'dark'){
        localStorage.theme = 'light'
    } else {
-       localStorage.theme = dark
+       localStorage.theme = 'dark'
    }
    applyTheme()
 }
@@ -21,4 +21,5 @@ function applyTheme() {
         document.documentElement.classList.remove('dark')
     }
 }
+
 </script>

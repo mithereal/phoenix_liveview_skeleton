@@ -122,9 +122,7 @@
                         </a>
                     </li>
 				</ul>
-
 				<div class="relative pull-right pl-4 pr-4 md:pr-0">
-				<button id="theme_switcher" onclick="toggleTheme()">Switch Theme</button>
                     <input type="search" placeholder="Search" class="w-full bg-gray-900 text-sm text-gray-400 transition border border-gray-800 focus:outline-none focus:border-gray-600 rounded py-1 px-2 pl-10 appearance-none leading-normal">
                     <div class="absolute search-icon" style="top: 0.375rem;left: 1.75rem;">
                         <svg class="fill-current pointer-events-none text-gray-500 w-4 h-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
@@ -134,6 +132,12 @@
                 </div>
 
 			</div>
+			<div class="relative pull-right pl-4 pr-4 md:pr-0">
+			<label id="switch" class="switch">
+            <input type="checkbox" onchange="toggleTheme()" id="slider">
+            <span class="slider round"></span>
+        </label>
+        </div>
 
 		</div>
 	</nav>
