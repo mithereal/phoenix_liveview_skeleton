@@ -47,32 +47,21 @@ module.exports = (env, options) => {
                     }
                 },
                 {
-                    test: /\.[s]?css$/,
+                    test: /\.css$/,
                     use: [
                         MiniCssExtractPlugin.loader,
-                        'css-loader',
-                        'sass-loader',
+                        'css-loader?url=false',
+                        'postcss-loader'
                     ],
                 },
-                {
-                    test: /\.css$/i,
-                    loader: "css-loader",
-                    options: {
-                        import: true,
-                        url: false
-                    }
-                },
-                {
-                    test: /\.[s]?css$/,
-                    loader: 'postcss-loader',
-                },
-                {
-                    test: /\.(jpeg|jpg|png|gif|svg)$/i,
-                    loader: 'file-loader',
-
-                    options: {
-                        name: '[name].[ext]?[hash]'
-                    }
+                  {
+                    test: /\.scss$/,
+                    use: [
+                        MiniCssExtractPlugin.loader,
+                        'css-loader?url=false',
+                        'postcss-loader',
+                        'sass-loader'
+                    ],
                 }
             ]
         },
@@ -92,7 +81,7 @@ module.exports = (env, options) => {
             }]),
             new CopyWebpackPlugin([{
                 from: 'node_modules/@fortawesome/fontawesome-free/webfonts/',
-                to: '../fonts/font-awesome/'
+                to: '../css/webfonts/'
             }]),
             new CopyWebpackPlugin([{
                 from: 'node_modules/@fortawesome/fontawesome-free/svgs/',

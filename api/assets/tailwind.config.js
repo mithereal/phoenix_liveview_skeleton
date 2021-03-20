@@ -1,3 +1,5 @@
+const colors = require('tailwindcss/colors')
+
 module.exports = {
   purge: [
     '../lib/**/*.ex',
@@ -5,8 +7,28 @@ module.exports = {
     '../lib/**/*.eex',
     './js/**/*.js'
   ],
-  theme: {},
+  darkMode: 'class',
+  theme: {
+    colors: {
+      gray: colors.coolGray,
+      blue: colors.lightBlue,
+      red: colors.rose,
+      pink: colors.fuchsia
+    },
+    fontFamily: {
+      sans: ['Graphik', 'sans-serif'],
+      serif: ['Merriweather', 'serif']
+    },
+    extend: {
+      spacing: {
+        '128': '32rem',
+        '144': '36rem'
+      },
+      borderRadius: {
+        '4xl': '2rem',
+      }
+    }
+  },
   variants: {},
-  plugins: [],
-   darkMode: 'class'
+  plugins: []
 };
