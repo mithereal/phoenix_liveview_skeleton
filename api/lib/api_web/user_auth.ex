@@ -85,7 +85,7 @@ defmodule ApiWeb.UserAuth do
       ApiWeb.Endpoint.broadcast(live_socket_id, "disconnect", %{})
     end
 
-     Api.User.Server.Supervisor.stop(user.email)
+    Api.User.Server.Supervisor.stop(user.email)
 
     conn
     |> renew_session()
@@ -122,8 +122,9 @@ defmodule ApiWeb.UserAuth do
   """
   def redirect_if_user_is_authenticated(conn, _opts) do
     if conn.assigns[:current_user] do
-     user = get_session(conn, :user)
-         Api.User.Server.Supervisor.start(user.email)
+      user = get_session(conn, :user)
+      Api.User.Server.Supervisor.start(user.email)
+
       conn
       |> redirect(to: signed_in_path(conn))
       |> halt()
@@ -140,8 +141,8 @@ defmodule ApiWeb.UserAuth do
   """
   def require_authenticated_user(conn, _opts) do
     if conn.assigns[:current_user] do
-     user = get_session(conn, :user)
-         Api.User.Server.Supervisor.start(user.email)
+      user = get_session(conn, :user)
+      Api.User.Server.Supervisor.start(user.email)
       conn
     else
       conn

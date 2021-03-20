@@ -98,7 +98,6 @@ defmodule ApiWeb.Router do
     post "/reset_password", UserResetPasswordController, :create
     get "/reset_password/:token", UserResetPasswordController, :edit
     put "/reset_password/:token", UserResetPasswordController, :update
-
   end
 
   scope "/user/settings", ApiWeb do
@@ -108,7 +107,6 @@ defmodule ApiWeb.Router do
     put "/update_password", UserSettingsController, :update_password
     put "/update_email", UserSettingsController, :update_email
     get "/confirm_email/:token", UserSettingsController, :confirm_email
-
   end
 
   scope "/user", ApiWeb do
@@ -120,7 +118,6 @@ defmodule ApiWeb.Router do
     get "/confirm", UserConfirmationController, :new
     post "/confirm", UserConfirmationController, :create
     get "/confirm/:token", UserConfirmationController, :confirm
-
   end
 
   scope "/home", ApiWeb do
@@ -132,12 +129,12 @@ defmodule ApiWeb.Router do
   scope "/admin", ApiWeb do
     pipe_through [:admin_browser, :require_authenticated_user, :admin]
 
-     live "/", AdminDashboardLive
+    live "/", AdminDashboardLive
     live "/analytics", AdminDashboardAnalyticsLive
     live "/accounts", AdminDashboardAccountsLive
   end
 
-    scope "/", ApiWeb do
+  scope "/", ApiWeb do
     pipe_through [:browser]
 
     live "/", PageLive

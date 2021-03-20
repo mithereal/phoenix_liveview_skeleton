@@ -28,7 +28,6 @@ defmodule Api.User.Server.Supervisor do
     DynamicSupervisor.init(strategy: :one_for_one)
   end
 
-
   def start(hash \\ nil) do
     hash =
       case hash do
@@ -36,14 +35,13 @@ defmodule Api.User.Server.Supervisor do
         _ -> hash
       end
 
-      user = %{hash: hash}
+    user = %{hash: hash}
 
     child_spec = {Api.User.Server, user}
 
     DynamicSupervisor.start_child(@name, child_spec)
 
- Task.async(fn -> Api.Admin.refresh_users() end)
-
+    Task.async(fn -> Api.Admin.refresh_users() end)
 
     {:ok, "success"}
   end
@@ -86,5 +84,4 @@ defmodule Api.User.Server.Supervisor do
       _ -> true
     end
   end
-
 end

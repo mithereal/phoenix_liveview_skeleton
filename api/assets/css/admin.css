@@ -1,28 +1,41 @@
 @import "tailwindcss/base";
 @import "tailwindcss/components";
+@import "./base.css";
 @import "tailwindcss/utilities";
+@import '@fortawesome/fontawesome-free/css/all.css';
 
-@layer base {
+		@layer base {
 
     body {
-        @apply bg-gray-100 font-sans leading-normal tracking-normal
-    }
+        @apply bg-gray-100;
 
-    .nav-header {
-        @apply bg-gray-100 fixed w-full z-10 top-0 shadow
+            &.dark {
+        @apply bg-black-alt
     }
-
-    .user-menu {
-        @apply bg-gray-100 rounded shadow-md mt-2 absolute mt-12 top-0 right-0 min-w-full overflow-auto z-30 invisible
     }
-
 }
 
 @layer components {
 
-    .list-item {
-        @apply px-4 py-2 block text-gray-900 no-underline hover:no-underline
+.nav-header {
+ @apply bg-gray-100
+}
+
+.site_logo_link {
+    @apply text-gray-100;
+
+    &.dark {
+        @apply bg-gray-900
     }
+}
+
+.mode_logo {
+    @apply fa-sun text-pink-600;
+
+    &.dark {
+        @apply fa-moon  text-blue-400
+    }
+}
 
 }
 

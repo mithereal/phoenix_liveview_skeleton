@@ -8,8 +8,7 @@ defmodule Api.Error.Server do
   @name :error_server
   @restart_time 60 * 1000 * 60
 
-    defstruct errors: %{}
-
+  defstruct errors: %{}
 
   def child_spec(init) do
     %{
@@ -19,7 +18,6 @@ defmodule Api.Error.Server do
       type: :worker
     }
   end
-
 
   ## client funs
 
@@ -41,12 +39,11 @@ defmodule Api.Error.Server do
       errors: []
     }
 
-Logger.info "Started: Error Queue"
-Process.send_after(Task.shutdown(@name, :brutal_kill), @restart_time)
+    Logger.info("Started: Error Queue")
+    Process.send_after(Task.shutdown(@name, :brutal_kill), @restart_time)
 
     {:ok, initial_state}
   end
-
 
   def start_server() do
     try do
@@ -67,10 +64,7 @@ Process.send_after(Task.shutdown(@name, :brutal_kill), @restart_time)
 
   ## server funs
 
-
-
   def handle_info(:start_server, state) do
-
     {:noreply, state}
   end
 
@@ -89,14 +83,11 @@ Process.send_after(Task.shutdown(@name, :brutal_kill), @restart_time)
     {:stop, :normal, state}
   end
 
-    def handle_call(
+  def handle_call(
         :show,
         _from,
         state
       ) do
-
     {:reply, {:ok, state}, state}
   end
-
-
 end

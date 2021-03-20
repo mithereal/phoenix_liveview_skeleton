@@ -306,6 +306,4 @@ defmodule ApiWeb.AnalyticsComponent do
 
     """
   end
-
-
 end

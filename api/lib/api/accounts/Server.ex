@@ -8,8 +8,7 @@ defmodule Api.User.Server do
   @name :user_server
   @public_registry_name :user_registry
 
-    defstruct user: %{}
-
+  defstruct user: %{}
 
   def child_spec(init) do
     %{
@@ -39,7 +38,8 @@ defmodule Api.User.Server do
     initial_state = %__MODULE__{
       user: user
     }
-Logger.info "Started: User Server"
+
+    Logger.info("Started: User Server")
     {:ok, initial_state}
   end
 
@@ -66,11 +66,7 @@ Logger.info "Started: User Server"
 
   ## server funs
 
-
-
   def handle_info(:start_server, state) do
-
-
     {:noreply, state}
   end
 
@@ -79,7 +75,7 @@ Logger.info "Started: User Server"
         _from,
         state
       ) do
-       Task.async(fn -> Api.Admin.refresh_users() end)
+    Task.async(fn -> Api.Admin.refresh_users() end)
     {:stop, {:ok, "User Server Normal Shutdown"}, state.user.hash}
   end
 
@@ -87,18 +83,15 @@ Logger.info "Started: User Server"
         :shutdown,
         state
       ) do
-       Task.async(fn -> Api.Admin.refresh_users() end)
+    Task.async(fn -> Api.Admin.refresh_users() end)
     {:stop, :normal, state}
   end
 
-    def handle_call(
+  def handle_call(
         :show,
         _from,
         state
       ) do
-
     {:reply, {:ok, state}, state}
   end
-
-
 end

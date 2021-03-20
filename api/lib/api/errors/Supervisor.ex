@@ -27,17 +27,14 @@ defmodule Api.Error.Server.Supervisor do
     DynamicSupervisor.init(strategy: :one_for_one)
   end
 
-
   def start() do
-
-      errors = %{errors: []}
+    errors = %{errors: []}
 
     child_spec = {Api.Error.Server, errors}
 
     DynamicSupervisor.start_child(@name, child_spec)
 
- Task.async(fn -> Api.Admin.refresh_errors() end)
-
+    Task.async(fn -> Api.Admin.refresh_errors() end)
 
     {:ok, "success"}
   end
@@ -80,5 +77,4 @@ defmodule Api.Error.Server.Supervisor do
       _ -> true
     end
   end
-
 end

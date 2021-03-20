@@ -16,11 +16,11 @@ defmodule ApiWeb.AdminDashboardLive do
     socket = assign(socket, :active_users, active_users)
     socket = assign(socket, :total_users, total_users)
     socket = assign(socket, :total_errors, errors)
-#    socket = assign(socket, :last_visited, __MODULE__)
+    #    socket = assign(socket, :last_visited, __MODULE__)
 
     if connected?(socket), do: Api.Admin.subscribe("Admin", "Dashboard")
 
-     Process.send_after(self(), {:tick, socket}, @minute_ticks)
+    Process.send_after(self(), {:tick, socket}, @minute_ticks)
     {:ok, socket}
   end
 
@@ -31,9 +31,12 @@ defmodule ApiWeb.AdminDashboardLive do
     """
   end
 
-    def handle_info({_requesting_module, [:data, :updated], %{active_users: active_users, total_users: total_users}}, socket) do
-
-   socket = assign(socket, :active_users, Enum.count(active_users))
+  def handle_info(
+        {_requesting_module, [:data, :updated],
+         %{active_users: active_users, total_users: total_users}},
+        socket
+      ) do
+    socket = assign(socket, :active_users, Enum.count(active_users))
 
     socket = assign(socket, :total_users, total_users)
 
@@ -41,17 +44,14 @@ defmodule ApiWeb.AdminDashboardLive do
   end
 
   def handle_info({:tick, socket}, state) do
-
-{uptime, _} = :erlang.statistics(:wall_clock)
+    {uptime, _} = :erlang.statistics(:wall_clock)
 
     uptime = Float.ceil(uptime / @minute_ticks)
 
     socket = assign(socket, :uptime, uptime)
 
-     Process.send_after(self(), {:tick, socket}, @minute_ticks)
+    Process.send_after(self(), {:tick, socket}, @minute_ticks)
 
     {:noreply, socket}
   end
-
-
 end

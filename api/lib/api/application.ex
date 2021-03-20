@@ -19,7 +19,7 @@ defmodule Api.Application do
       {Registry, keys: :unique, name: :user_registry},
       # Start the User supervisor
       Api.User.Server.Supervisor,
-      Api.Error.Server.Supervisor,
+      Api.Error.Server.Supervisor
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html
