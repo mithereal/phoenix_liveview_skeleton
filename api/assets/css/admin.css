@@ -29,6 +29,7 @@
         }
     }
 
+
     .mode_logo {
         @apply fa-sun text-pink-600;
 
@@ -37,7 +38,7 @@
         }
     }
 
-  .user_menu_container {
+    .user_menu_container {
         @apply text-gray-800;
 
         &.dark {
@@ -57,78 +58,108 @@
         @apply bg-gray-100;
 
         &.dark {
-        @apply bg-gray-100;
-    }
+            @apply bg-gray-100;
+        }
     }
 
     .user_item {
         @apply text-gray-900 hover:bg-gray-400;
 
         &.dark {
-        @apply text-gray-100 hover:bg-gray-800;
+            @apply text-gray-100 hover:bg-gray-800;
+        }
     }
-    }
+
     .nav_content {
         @apply bg-gray-100;
 
         &.dark {
-        @apply bg-gray-900;
-    }
+            @apply bg-gray-900;
+        }
     }
 
-        .admin_menu_home_link {
+    .admin_menu_home_link {
         @apply text-pink-600 no-underline hover:text-gray-900;
 
         &.dark {
-        @apply text-blue-400 no-underline hover:text-gray-100 border-b-2 border-blue-400 hover:border-blue-400;
+            @apply text-blue-400 no-underline hover:text-gray-100 border-b-2 border-blue-400 hover:border-blue-400;
+        }
     }
-    }
-        .home_logo {
+
+    .home_logo {
         @apply text-pink-600;
 
         &.dark {
-        @apply text-blue-400;
-    }
+            @apply text-blue-400;
+        }
     }
 
-     .admin_menu_link {
+    .admin_menu_link {
         @apply hover:text-gray-100 border-b-2 border-gray-900;
 
         &.dark {
-        @apply hover:text-gray-900 border-b-2;
+            @apply hover:text-gray-900 border-b-2;
+        }
     }
-    }
-     .search {
-        @apply  border-gray-800 focus:outline-none focus:border-gray-600;
+
+    .search {
+        @apply border-gray-800 focus:outline-none focus:border-gray-600;
 
         &.dark {
-        @apply bg-gray-100 text-sm text-gray-800  focus:border-gray-700;
-    }
+            @apply bg-gray-100 text-sm text-gray-800  focus:border-gray-700;
+        }
     }
 
     .search_svg {
-        @apply  border-gray-800 focus:outline-none focus:border-gray-600;
+        @apply border-gray-800 focus:outline-none focus:border-gray-600;
 
         &.dark {
-        @apply text-gray-800;
-    }
+            @apply text-gray-800;
+        }
     }
 
     .footer {
-        @apply  bg-gray-100;
+        @apply bg-gray-100;
 
         &.dark {
-        @apply bg-gray-800;
-    }
+            @apply bg-gray-800;
+        }
     }
 
     .footer_link_header {
-        @apply  text-gray-100;
+        @apply text-gray-100;
 
         &.dark {
-        @apply text-gray-900;
+            @apply text-gray-900;
+        }
     }
+
+    :root {
+        --color-background: #e8ebe1;
+        --color-selected-text: #14a31d;
+        --color-hover-text: #c7eb65;
     }
+
+    .dark {
+        --color-background: #191919;
+        --color-selected-text: #14a31d;
+        --color-hover-text: #c7eb65;
+    }
+
+    .body_background {
+        background: var(--color-background);
+    }
+
+    .nav_background {
+        background: var(--color-background);
+        color: var(--color-selected-text);
+    }
+
+
+    .footer {
+        background: var(--color-background);
+    }
+
 }
 
 
