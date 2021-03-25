@@ -4,7 +4,7 @@ defmodule ApiWeb.ProfileComponent do
   @impl true
   def render(assigns) do
     ~L"""
- <div class="w-full px-4 md:px-0 md:mt-8 mb-16 text-gray-800 leading-normal">
+    <div class="w-full px-4 md:px-0 md:mt-8 mb-16 text-gray-800 leading-normal">
 
      <h1>Profile</h1>
 
@@ -13,7 +13,7 @@ defmodule ApiWeb.ProfileComponent do
     <li><%= @user_data.role %></li>
     <li><%= @user_data.confirmed_at %></li>
     </ul>
-</div>
+    </div>
     """
   end
 end

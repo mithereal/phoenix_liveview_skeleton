@@ -168,11 +168,9 @@ defmodule ApiWeb.UserAuth do
   defp maybe_store_return_to(conn), do: conn
 
   defp signed_in_path(conn, role \\ :user) do
-
-    case (role) do
+    case role do
       :admin -> "/admin"
-      _-> "/home"
+      _ -> "/home"
     end
-
+  end
 end
-   end

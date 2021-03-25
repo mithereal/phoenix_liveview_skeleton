@@ -6,10 +6,9 @@ defmodule ApiWeb.AdminDashboardAccountsLive do
 
   @impl true
   def mount(_params, session, socket) do
+    users = Api.Accounts.User |> Api.Repo.all()
 
-     users = Api.Accounts.User |> Api.Repo.all()
-
-     users = Enum.map(users, fn x ->  x.email end)
+    users = Enum.map(users, fn x -> x.email end)
 
     total_users = Enum.count(users)
 

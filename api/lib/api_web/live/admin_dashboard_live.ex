@@ -37,7 +37,6 @@ defmodule ApiWeb.AdminDashboardLive do
          %{active_users: active_users, total_users: total_users}},
         socket
       ) do
-
     socket = assign(socket, :active_users, Enum.count(active_users))
     socket = assign(socket, :total_users, total_users)
 

@@ -6,17 +6,16 @@ defmodule ApiWeb.AdminDashboardAccountsOnlineEmailLive do
 
   @impl true
   def mount(%{"email" => email} = params, session, socket) do
+    user = Api.Accounts.get_user_by_email(email)
 
-  user = Api.Accounts.get_user_by_email(email)
-
-  user = case user  do
-    nil -> %User{email: "", confirmed_at: "", role: ""}
-    _-> user
-  end
+    user =
+      case user do
+        nil -> %User{email: "", confirmed_at: "", role: ""}
+        _ -> user
+      end
 
     socket = assign_defaults(session, socket)
-     socket = assign(socket, :user_data, user)
-
+    socket = assign(socket, :user_data, user)
 
     {:ok, socket}
   end
@@ -29,12 +28,9 @@ defmodule ApiWeb.AdminDashboardAccountsOnlineEmailLive do
   end
 
   def handle_info(
-        {_requesting_module, [:data, :updated],_session},
+        {_requesting_module, [:data, :updated], _session},
         socket
       ) do
-
     {:noreply, socket}
   end
-
-
 end

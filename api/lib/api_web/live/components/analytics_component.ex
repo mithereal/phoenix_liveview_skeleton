@@ -308,7 +308,7 @@ defmodule ApiWeb.AnalyticsComponent do
 
     </div>
     """
-    end
+  end
 
   @impl true
   def render(assigns) do

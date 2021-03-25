@@ -4,10 +4,8 @@ defmodule ApiWeb.AdminProfileLive do
 
   @impl true
   def mount(_params, session, socket) do
-
     socket = assign_defaults(session, socket)
-    socket = assign(socket, :user_data,  socket.assigns.current_user)
-
+    socket = assign(socket, :user_data, socket.assigns.current_user)
 
     {:ok, socket}
   end
@@ -20,12 +18,9 @@ defmodule ApiWeb.AdminProfileLive do
   end
 
   def handle_info(
-        {_requesting_module, [:data, :updated],_session},
+        {_requesting_module, [:data, :updated], _session},
         socket
       ) do
-
     {:noreply, socket}
   end
-
-
 end

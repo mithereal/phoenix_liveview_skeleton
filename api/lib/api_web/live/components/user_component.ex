@@ -9,8 +9,8 @@ defmodule ApiWeb.UserComponent do
     <div class = "label_cell"><%= @email %>
 
        <div class="inline-flex">
- <a href ="/admin/profile/<%= @email %>" class="bg-blue-300 hover:bg-blue-400 text-gray-800 font-bold py-2 px-4 rounded-r"><span>Show</span></a>
- </div>
+    <a href ="/admin/profile/<%= @email %>" class="bg-blue-300 hover:bg-blue-400 text-gray-800 font-bold py-2 px-4 rounded-r"><span>Show</span></a>
+    </div>
 
     </div>
 
