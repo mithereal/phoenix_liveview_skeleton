@@ -6,6 +6,7 @@ defmodule ApiWeb.AdminProfileLive do
   def mount(_params, session, socket) do
 
     socket = assign_defaults(session, socket)
+    socket = assign(socket, :user_data,  socket.assigns.current_user)
 
 
     {:ok, socket}

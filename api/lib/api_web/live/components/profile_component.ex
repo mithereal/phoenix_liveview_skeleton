@@ -9,9 +9,9 @@ defmodule ApiWeb.ProfileComponent do
      <h1>Profile</h1>
 
     <ul>
-    <li><%= @current_user.email %></li>
-    <li><%= @current_user.role %></li>
-    <li><%= @current_user.confirmed_at %></li>
+    <li><%= @user_data.email %></li>
+    <li><%= @user_data.role %></li>
+    <li><%= @user_data.confirmed_at %></li>
     </ul>
 </div>
     """

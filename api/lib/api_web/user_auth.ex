@@ -142,7 +142,7 @@ defmodule ApiWeb.UserAuth do
   def require_authenticated_user(conn, _opts) do
     if conn.assigns[:current_user] do
       user = get_session(conn, :user)
-IO.inspect(user, label: "user")
+
       Api.User.Server.Supervisor.start(user.email)
       conn
     else
