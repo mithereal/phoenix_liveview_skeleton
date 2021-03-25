@@ -38,7 +38,7 @@ defmodule ApiWeb.UserAuth do
     |> put_session(:user, user)
     |> put_session(:live_socket_id, "users_sessions:#{Base.url_encode64(token)}")
     |> maybe_write_remember_me_cookie(token, params)
-    |> redirect(to: user_return_to || signed_in_path(conn))
+    |> redirect(to: user_return_to || signed_in_path(conn, user.role))
   end
 
   defp maybe_write_remember_me_cookie(conn, token, %{"remember_me" => "true"}) do
@@ -126,7 +126,7 @@ defmodule ApiWeb.UserAuth do
       Api.User.Server.Supervisor.start(user.email)
 
       conn
-      |> redirect(to: signed_in_path(conn))
+      |> redirect(to: signed_in_path(conn, user.role))
       |> halt()
     else
       conn
@@ -142,6 +142,7 @@ defmodule ApiWeb.UserAuth do
   def require_authenticated_user(conn, _opts) do
     if conn.assigns[:current_user] do
       user = get_session(conn, :user)
+IO.inspect(user, label: "user")
       Api.User.Server.Supervisor.start(user.email)
       conn
     else
@@ -166,5 +167,12 @@ defmodule ApiWeb.UserAuth do
 
   defp maybe_store_return_to(conn), do: conn
 
-  defp signed_in_path(_conn), do: "/"
+  defp signed_in_path(conn, role \\ :user) do
+
+    case (role) do
+      :admin -> "/admin"
+      _-> "/home"
+    end
+
 end
+   end

@@ -132,6 +132,7 @@ defmodule ApiWeb.Router do
     live "/", AdminDashboardLive
     live "/analytics", AdminDashboardAnalyticsLive
     live "/accounts", AdminDashboardAccountsLive
+    live "/profile", AdminProfileLive
   end
 
   scope "/", ApiWeb do

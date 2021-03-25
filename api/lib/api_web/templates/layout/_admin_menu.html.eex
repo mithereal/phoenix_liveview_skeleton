@@ -1,12 +1,17 @@
- <ul class="list-reset flex flex-row md:flex-col py-0 md:py-3 px-1 md:px-2 text-center md:text-left">
-                    <li class="mr-3 flex-1">
-                        <a href="/admin/analytics" class="block py-1 md:py-3 pl-1 align-middle text-white no-underline hover:text-white border-b-2 border-blue-600">
-                            <i class="fas fa-chart-area pr-0 md:pr-3 text-blue-600"></i><span class="pb-1 md:pb-0 text-xs md:text-base text-white md:text-white block md:inline-block">Analytics</span>
-                        </a>
-                    </li>
-                    <li class="mr-3 flex-1">
-                        <a href="/admin/accounts" class="block py-1 md:py-3 pl-0 md:pl-1 align-middle text-white no-underline hover:text-white border-b-2 border-gray-800 hover:border-red-500">
-                            <i class="fa fa-wallet pr-0 md:pr-3"></i><span class="pb-1 md:pb-0 text-xs md:text-base text-gray-600 md:text-gray-400 block md:inline-block">Accounts</span>
-                        </a>
-                    </li>
-                </ul>
+                    <div id="userMenu"
+                         class="user_menu rounded shadow-md mt-2 absolute mt-12 top-0 right-0 min-w-full overflow-auto z-30 invisible">
+                        <ul class="list-reset">
+                            <li><a href="/admin/profile"
+                                   class="px-4 py-2 block  no-underline hover:no-underline">My
+                                account</a></li>
+                            <li><a href="#"
+                                   class="px-4 py-2 block text-gray-900 hover:bg-gray-300 no-underline hover:no-underline">Notifications</a>
+                            </li>
+                            <li>
+                                <hr class="border-t mx-2 border-gray-400">
+                            </li>
+                            <li><a href="/user/log_out"
+                                   class="px-4 py-2 block text-gray-900 hover:bg-gray-300 no-underline hover:no-underline">Logout</a>
+                            </li>
+                        </ul>
+                    </div>

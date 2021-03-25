@@ -7,16 +7,17 @@ defmodule ApiWeb.AdminDashboardLive do
   @impl true
   def mount(_params, session, socket) do
     {uptime, _} = :erlang.statistics(:wall_clock)
+
     uptime = Float.ceil(uptime / @minute_ticks)
+    uptime = Float.round(uptime / 1440)
     active_users = Enum.count(Api.User.Server.Supervisor.list())
     total_users = Api.Accounts.count_users()
-    errors = 0
+
     socket = assign_defaults(session, socket)
+    socket = assign(socket, :total_errors, 0)
     socket = assign(socket, :uptime, uptime)
     socket = assign(socket, :active_users, active_users)
     socket = assign(socket, :total_users, total_users)
-    socket = assign(socket, :total_errors, errors)
-    #    socket = assign(socket, :last_visited, __MODULE__)
 
     if connected?(socket), do: Api.Admin.subscribe("Admin", "Dashboard")
 
@@ -36,8 +37,8 @@ defmodule ApiWeb.AdminDashboardLive do
          %{active_users: active_users, total_users: total_users}},
         socket
       ) do
-    socket = assign(socket, :active_users, Enum.count(active_users))
 
+    socket = assign(socket, :active_users, Enum.count(active_users))
     socket = assign(socket, :total_users, total_users)
 
     {:noreply, socket}
@@ -47,6 +48,7 @@ defmodule ApiWeb.AdminDashboardLive do
     {uptime, _} = :erlang.statistics(:wall_clock)
 
     uptime = Float.ceil(uptime / @minute_ticks)
+    uptime = Float.round(uptime / 1440)
 
     socket = assign(socket, :uptime, uptime)
 
