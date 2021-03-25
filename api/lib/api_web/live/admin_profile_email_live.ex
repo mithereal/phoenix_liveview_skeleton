@@ -1,4 +1,4 @@
-defmodule ApiWeb.AdminProfileLive do
+defmodule ApiWeb.AdminProfileEmailLive do
   use ApiWeb, :live_view
   use ApiWeb, :user_auth
 
