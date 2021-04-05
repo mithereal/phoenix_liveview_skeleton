@@ -22,7 +22,7 @@ defmodule ApiWeb.UserDashboardLive do
   @impl true
   def render(assigns) do
     ~L"""
-    <section class="phx-hero">
+    <section class="container w-full mx-auto pt-20">
       <h1>Welcome to the user dashboard!</h1>
     </section>
     """

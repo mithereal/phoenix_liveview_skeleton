@@ -131,12 +131,29 @@ defmodule ApiWeb.Router do
 
     live "/", AdminDashboardLive
     live "/analytics", AdminDashboardAnalyticsLive
-    live "/accounts", AdminDashboardAccountsLive
     live "/accounts/online", AdminDashboardAccountsOnlineLive
     live "/accounts/online/:email", AdminDashboardAccountsOnlineEmailLive
-    live "/profile", AdminProfileLive
-    live "/profile/:email", AdminProfileEmailLive
+
   end
+
+
+  scope "/admin", ApiWeb do
+    pipe_through [:admin_browser, :require_authenticated_user, :admin]
+
+    get "/accounts", AccountsController, :list
+    get "/profile", AdminProfileController, :edit
+    get "/profile/:email", AdminProfileController, :get
+
+  end
+
+  scope "/admin/settings", ApiWeb do
+    pipe_through [:admin_browser, :require_authenticated_user, :admin]
+
+    get "/", AdminSettingsController, :edit
+    put "/update_password", AdminSettingsController, :update_password
+    put "/update_email", AdminSettingsController, :update_email
+  end
+
 
   scope "/", ApiWeb do
     pipe_through [:browser]
