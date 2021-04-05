@@ -133,7 +133,6 @@ defmodule ApiWeb.Router do
     live "/analytics", AdminDashboardAnalyticsLive
     live "/accounts/online", AdminDashboardAccountsOnlineLive
     live "/accounts/online/:email", AdminDashboardAccountsOnlineEmailLive
-
   end
 
 
@@ -143,7 +142,6 @@ defmodule ApiWeb.Router do
     get "/accounts", AccountsController, :list
     get "/profile", AdminProfileController, :edit
     get "/profile/:email", AdminProfileController, :get
-
   end
 
   scope "/admin/settings", ApiWeb do
