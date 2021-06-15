@@ -55,12 +55,14 @@ defmodule Api.MixProject do
       {:remote_ip, "~> 0.2.1"},
       {:corsica, "~> 1.1"},
       {:bypass, "~> 2.1"},
+      {:inch_ex, ">= 0.0.0", only: :docs},
       {:smlr, git: "git://github.com/data-twister/smlr.git"},
       {:scrivener_ecto, "~> 2.0"},
       {:legato, git: "git@github.com:data-twister/legato-ex.git"},
       {:exgravatar, "~> 2.0"},
       {:phx_gen_auth, "~> 0.6", only: [:dev], runtime: false},
-
+      {:mix_systemd, "~> 0.7"},
+      {:mix_deploy, "~> 0.7"}
     ]
   end
 
