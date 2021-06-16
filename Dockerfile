@@ -6,7 +6,6 @@ WORKDIR /opt/build
 
 # Cache dependencies
 COPY mix.exs mix.lock ./
-COPY apps/db/mix.exs ./apps/db/
 RUN HEX_HTTP_CONCURRENCY=4 HEX_HTTP_TIMEOUT=180 mix deps.get
 
 # Build dependencies
@@ -15,7 +14,6 @@ RUN mix deps.compile
 
 # Run Migrations
 RUN migrate.sh
-
 
 # Build app
 ARG APP
