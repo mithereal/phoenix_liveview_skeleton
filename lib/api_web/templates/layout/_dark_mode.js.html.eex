@@ -1,0 +1,25 @@
+<script type="text/javascript">
+if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+  document.documentElement.classList.add('dark')
+} else {
+  document.documentElement.classList.remove('dark')
+}
+
+function toggleTheme() {
+   if (localStorage.getItem('theme') === 'dark'){
+       localStorage.theme = 'light'
+   } else {
+       localStorage.theme = 'dark'
+   }
+   applyTheme()
+}
+
+function applyTheme() {
+    if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark')
+    } else {
+        document.documentElement.classList.remove('dark')
+    }
+}
+
+</script>
