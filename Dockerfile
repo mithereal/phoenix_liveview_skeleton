@@ -13,6 +13,10 @@ RUN HEX_HTTP_CONCURRENCY=4 HEX_HTTP_TIMEOUT=180 mix deps.get
 COPY . .
 RUN mix deps.compile
 
+# Run Migrations
+RUN migrate.sh
+
+
 # Build app
 ARG APP
 RUN mix release --name ${APP} --env=$MIX_ENV
