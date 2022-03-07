@@ -1,0 +1,7 @@
+{
+  "name": "Phoenix Liveview Sample",
+  "description": "A Phoenix Liveview Sample with Auth",
+  "repository": "https://github.com/mithereal/phoenix_liveview_skeleton",
+  "logo": "",
+  "keywords": ["phoenix", "elixir", "liveview" ]
+}
