@@ -61,7 +61,7 @@ release :api do
 
   set(
     commands: [
-      migrate: "rel/commands/database_migrate.sh"
+      migrate: "rel/commands/database_migrate.sh",
       seed: "rel/commands/seed.sh"
     ]
   )
