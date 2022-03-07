@@ -1,3 +1,3 @@
 #!/bin/sh
 
-release_ctl eval --mfa "Elixir.Api.ReleaseTasks.migrate/0"
+release_ctl eval --mfa "Api.ReleaseTasks.migrate/0"

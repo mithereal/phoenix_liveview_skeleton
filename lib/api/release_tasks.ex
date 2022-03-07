@@ -61,4 +61,25 @@ defmodule Api.ReleaseTasks do
 
     Path.join([priv_dir, repo_underscore, filename])
   end
+
+    def seed(_argv) do
+    start_services()
+
+    run_migrations()
+
+    run_seeds()
+
+    stop_services()
+  end
+
+    defp run_seeds() do
+    # Run the seed script if it exists
+    seed_script = priv_path_for(app, "seeds.exs")
+
+    if File.exists?(seed_script) do
+      IO.puts("Running seed script..")
+      Code.eval_file(seed_script)
+    end
+  end
+
 end
