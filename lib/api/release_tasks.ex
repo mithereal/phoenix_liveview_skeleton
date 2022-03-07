@@ -17,7 +17,7 @@ defmodule Api.ReleaseTasks do
     :logger
   ]
 
-  def migrate do
+  def migrate(_) do
     start_services()
 
     run_migrations()

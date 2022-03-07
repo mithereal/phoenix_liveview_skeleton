@@ -41,7 +41,7 @@ RUN cd ${phoenix_subdir}/assets \
   && npm run deploy \
   && cd .. \
   && mix phx.digest
-RUN mix distillery.release ${app_name} \
+RUN mix distillery.release --verbose --name ${app_name} \
   && mv _build/${build_env}/rel/${app_name} /opt/release \
   && mv /opt/release/bin/${app_name} /opt/release/bin/start_server
 
