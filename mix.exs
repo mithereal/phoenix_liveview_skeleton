@@ -61,8 +61,6 @@ defmodule Api.MixProject do
       {:legato, git: "git://github.com/data-twister/legato-ex.git"},
       {:exgravatar, "~> 2.0"},
       {:phx_gen_auth, "~> 0.6", only: [:dev], runtime: false},
-      {:mix_systemd, "~> 0.7"},
-      {:mix_deploy, "~> 0.7"},
       {:distillery, "~> 2.1"},
       {:credo, "~> 1.5.0", only: [:dev, :test], runtime: false}
     ]
