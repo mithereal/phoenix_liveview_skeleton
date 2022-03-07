@@ -25,7 +25,6 @@ RUN set -ex && \
     git \
     curl \
     nodejs-current \
-    npm \
     python3 \
     build-base && \
     mix local.rebar --force && \
@@ -54,6 +53,7 @@ RUN set -ex && \
     bash \
     curl \
     gcc \
+    nodejs-current \
     libstdc++ \
     openssl-dev && \
     curl https://raw.githubusercontent.com/eficode/wait-for/f71f8199a0dd95953752fb5d3f76f79ced16d47d/wait-for -o /usr/local/bin/wait-for && \
