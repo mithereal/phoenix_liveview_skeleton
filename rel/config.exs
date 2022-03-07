@@ -39,12 +39,6 @@ environment :prod do
   set(cookie: :"Rq~`^;R5%M%fA$mcvM2}_~:F6xX34ZQUl{K=WkXSuD6XNL>T*jEEct=Ch76*O:ol")
 end
 
-environment :e2e do
-  set(include_erts: true)
-  set(include_src: false)
-  set(cookie: :"`L[1E5}aoku1O]BNc]M7&N6j6!}j7GL{TEsp~Oc4QTf%sTnr(8otCVIcl_*JTHT7")
-end
-
 # You may define one or more releases in this file.
 # If you have not set a default release, or selected one
 # when running `mix release`, the first release in the file
