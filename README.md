@@ -26,6 +26,12 @@ To start your Phoenix server:
 
 Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
 
+## Login
+ visit [`localhost:4000`](http://localhost:4000/login) in separate private  browser windows.
+ - admin:  email: "admin@company.com", password: "123456789abc"
+ - user 1:  email: "user1@company.com", password: "123456789abc"
+ - user 2:  email: "user2@company.com", password: "123456789abc"
+
 Ready to run in production? Please [check our deployment guides](https://hexdocs.pm/phoenix/deployment.html).
 
 ## Learn more
