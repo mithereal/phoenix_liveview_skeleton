@@ -1,29 +1,72 @@
-FROM bitwalker/alpine-elixir:1.6.6
-RUN apk add bash imagemagick curl gcc make libc-dev libgcc && rm -rf /var/cache/apk/*
+# https://cloud.google.com/community/tutorials/elixir-phoenix-on-kubernetes-google-container-engine
+# Build time container
+ARG ALPINE_VERSION=3.13
 
-ENV HOME=/opt/app/ SHELL=/bin/bash MIX_ENV=prod
-WORKDIR /opt/build
+FROM elixir:1.11.3-alpine AS builder
 
-# Cache dependencies
-COPY mix.exs mix.lock ./
-RUN HEX_HTTP_CONCURRENCY=4 HEX_HTTP_TIMEOUT=180 mix deps.get
+ARG app_name=phoenix_liveview_skeleton
+ARG phoenix_subdir=.
+ARG build_env=prod
+ARG SOURCE_VERSION
+ARG COMMIT=${SOURCE_VERSION}
+ARG MIX_ENV=prod
 
-# Build dependencies
-COPY . .
-RUN mix deps.compile
+ENV APP_NAME=${app_name} \
+    MIX_ENV=${MIX_ENV} \
+    COMMIT=${COMMIT}
 
-# Run Migrations
-RUN migrate.sh
+ENV REPLACE_OS_VARS=true
+ENV MIX_ENV=${build_env} TERM=xterm
 
-# Build app
-ARG APP
-RUN mix release --name ${APP} --env=$MIX_ENV
+RUN set -ex && \
+    apk update && \
+    apk upgrade --no-cache && \
+    apk add --no-cache \
+    git \
+    curl \
+    nodejs \
+    npm \
+    python3 \
+    build-base && \
+    mix local.rebar --force && \
+    mix local.hex --force
 
-# Copy app to workdir and remove build files
+RUN mkdir /app
+COPY . /app
+WORKDIR /app
+
+RUN mix do deps.get, compile
+RUN cd ${phoenix_subdir}/assets \
+  && npm install \
+  && npm run deploy \
+  && cd .. \
+  && mix phx.digest
+RUN mix release ${app_name} \
+  && mv _build/${build_env}/rel/${app_name} /opt/release \
+  && mv /opt/release/bin/${app_name} /opt/release/bin/start_server
+
+# Runtime container
+FROM alpine:${ALPINE_VERSION}est
+
+RUN set -ex && \
+    apk update && \
+    apk add --no-cache \
+    bash \
+    curl \
+    gcc \
+    libstdc++ \
+    openssl-dev && \
+    curl https://raw.githubusercontent.com/eficode/wait-for/f71f8199a0dd95953752fb5d3f76f79ced16d47d/wait-for -o /usr/local/bin/wait-for && \
+    chmod +x /usr/local/bin/wait-for
+
+# For local dev, heroku will ignore this
+EXPOSE $PORT
+
 WORKDIR /opt/app
-RUN mv /opt/build/_build/$MIX_ENV/rel/${APP}/* /opt/app/
-RUN rm -rf /opt/build
-RUN ln -s /opt/app/bin/${APP} bin/entrypoint
+COPY --from=0 /opt/release .
+RUN addgroup -S elixir && adduser -H -D -S -G elixir elixir
+RUN chown -R elixir:elixir /opt/app
+USER elixir
 
-EXPOSE 80
-ENTRYPOINT ["./bin/entrypoint"]
+# Heroku sets magical $PORT variable
+CMD PORT=$PORT
