@@ -24,7 +24,8 @@ RUN set -ex && \
     apk add --no-cache \
     git \
     curl \
-    nodejs-current \
+    nodejs \
+    npm \
     python3 \
     build-base && \
     mix local.rebar --force && \
