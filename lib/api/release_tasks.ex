@@ -42,14 +42,14 @@ defmodule Api.ReleaseTasks do
   end
 
   defp run_migrations do
-    app = Keyword.get(Repo.config(), :otp_app)
+    app = Keyword.get(Repo.config(), :api)
     IO.puts("Running migrations for #{app}")
     migrations_path = priv_path_for(Repo, "migrations")
     Ecto.Migrator.run(Repo, migrations_path, :up, all: true)
   end
 
   defp priv_path_for(repo, filename) do
-    app = Keyword.get(repo.config(), :otp_app)
+    app = Keyword.get(repo.config(), :api)
 
     repo_underscore =
       repo
