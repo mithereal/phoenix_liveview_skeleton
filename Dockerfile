@@ -24,7 +24,7 @@ RUN set -ex && \
     apk add --no-cache \
     git \
     curl \
-    nodejs-npm \
+    nodejs-current \
     npm \
     python3 \
     build-base && \
