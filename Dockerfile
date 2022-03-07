@@ -1,8 +1,8 @@
 # https://cloud.google.com/community/tutorials/elixir-phoenix-on-kubernetes-google-container-engine
 # Build time container
-ARG ALPINE_VERSION=3.13
+ARG ALPINE_VERSION=3.15
 
-FROM elixir:1.11.3-alpine AS builder
+FROM elixir:1.13.3-alpine AS builder
 
 ARG app_name=phoenix_liveview_skeleton
 ARG phoenix_subdir=.
