@@ -26,7 +26,7 @@ defmodule Api.ReleaseTasks do
   end
 
   defp start_services do
-    IO.puts("Starting dependencies..")
+    IO.puts("Starting dependencies...")
     # Start apps necessary for executing migrations
     Enum.each(@start_apps, &Application.ensure_all_started/1)
 
