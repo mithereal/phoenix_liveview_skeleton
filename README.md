@@ -6,6 +6,9 @@ This is a liveview with auth demo useful for a starter application
 
 [![Inline docs](http://inch-ci.org/github/mithereal/phoenix_liveview_skeleton.svg)](http://inch-ci.org/github/mithereal/phoenix_liveview_skeleton)
 
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
+
+
 To setup your server:
 
   * Create a user called platform
