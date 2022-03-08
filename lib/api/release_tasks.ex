@@ -72,8 +72,7 @@ defmodule Api.ReleaseTasks do
 
     defp run_seeds() do
     # Run the seed script if it exists
-    app = Keyword.get(Repo.config(), :otp_app)
-    seed_script = priv_path_for(app, "seeds.exs")
+    seed_script = priv_path_for(Repo, "seeds.exs")
 
     if File.exists?(seed_script) do
       IO.puts("Running seed script..")

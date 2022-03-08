@@ -1,4 +1,4 @@
-defmodule Api.ReleaseTasks.Migrate do
+defmodule ReleaseTasks.Migrate do
   @moduledoc "Mix task to run Ecto database migrations"
 
   #Name of app as used by Application.get_env
