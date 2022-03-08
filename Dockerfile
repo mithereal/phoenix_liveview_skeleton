@@ -47,7 +47,7 @@ RUN cd ${phoenix_subdir}/assets \
   &&  cp ${release_dir}/${app_name}.tar.gz /opt/release  \
   && tar -xzf ${app_name}.tar.gz \
   &&  rm ${app_name}.tar.gz
-  && mv /opt/release/bin/${app_name} /opt/release/bin/start_server
+  && cp /opt/release/bin/${app_name} /opt/release/bin/start_server
 
 # Runtime container
 FROM alpine:${ALPINE_VERSION}est
@@ -71,6 +71,8 @@ WORKDIR /opt/app
 COPY --from=0 /opt/release .
 RUN addgroup -S elixir && adduser -H -D -S -G elixir elixir
 RUN chown -R elixir:elixir /opt/app
+RUN /opt/app/${app_name} migrate
+RUN /opt/app/${app_name} seed
 USER elixir
 
 # Heroku sets magical $PORT variable

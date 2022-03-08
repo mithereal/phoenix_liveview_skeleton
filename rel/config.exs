@@ -9,7 +9,7 @@
 
 use Distillery.Releases.Config,
   # This sets the default release built by `mix release`
-  default_release: :api,
+  default_release: :prod,
   # This sets the default environment used by `mix release`
   default_environment: Mix.env()
 
@@ -44,7 +44,7 @@ end
 # when running `mix release`, the first release in the file
 # will be used by default
 
-release :api do
+release :prod do
   set(
     version:
       with {:ok, body} <- File.read("../package.json"),
