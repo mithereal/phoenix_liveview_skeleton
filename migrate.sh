@@ -1,2 +1,2 @@
 #!/bin/bash
- eval "ReleaseTasks.migrate.run"
+ eval "ReleaseTasks.Migrate.run"
