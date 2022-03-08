@@ -29,7 +29,8 @@ RUN set -ex && \
     python3 \
     build-base && \
     mix local.rebar --force && \
-    mix local.hex --force
+    mix local.hex --force && \
+    mkdir -p /opt/built
 
 RUN mkdir /app
 COPY . /app
@@ -40,9 +41,12 @@ RUN cd ${phoenix_subdir}/assets \
   && npm install \
   && npm run deploy \
   && cd .. \
-  && mix phx.digest
-RUN mix distillery.release --verbose --name ${app_name} \
-  && mv _build/${build_env}/rel/${app_name} /opt/release \
+  && mix phx.digest \
+  && release_dir=`ls -d _build/${MIX_ENV}/rel/app_name/releases/*/` \
+  &&  mix distillery.release --verbose --name ${app_name} \
+  &&  cp ${release_dir}/${app_name}.tar.gz /opt/release  \
+  && tar -xzf ${app_name}.tar.gz \
+  &&  rm ${app_name}.tar.gz
   && mv /opt/release/bin/${app_name} /opt/release/bin/start_server
 
 # Runtime container
