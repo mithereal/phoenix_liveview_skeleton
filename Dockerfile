@@ -42,7 +42,7 @@ RUN cd ${phoenix_subdir}/assets \
   && npm run deploy \
   && cd .. \
   && mix phx.digest \
-  && release_dir=`ls -d _build/${MIX_ENV}/rel/app_name/releases/*/` \
+  && release_dir=`ls -d _build/${MIX_ENV}/rel/${app_name}/releases/*/` \
   &&  mix distillery.release --verbose --name ${app_name} \
   &&  cp ${release_dir}/${app_name}.tar.gz /opt/release  \
   && tar -xzf ${app_name}.tar.gz \
