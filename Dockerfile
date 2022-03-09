@@ -71,8 +71,6 @@ WORKDIR /opt/app
 COPY --from=0 /opt/release .
 RUN addgroup -S elixir && adduser -H -D -S -G elixir elixir
 RUN chown -R elixir:elixir /opt/app
-RUN /opt/app/${app_name} migrate
-RUN /opt/app/${app_name} seed
 USER elixir
 
 # Heroku sets magical $PORT variable
