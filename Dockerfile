@@ -47,7 +47,7 @@ RUN cd ${phoenix_subdir}/assets \
   &&  cp ${release_dir}/${app_name}.tar.gz /opt/release  \
   && tar -xzf ${app_name}.tar.gz \
   &&  rm ${app_name}.tar.gz
-  && cp /opt/release/bin/${app_name} /opt/release/bin/start_server
+  && cp /opt/release/bin/${app_name} /opt/release/bin/server
 
 # Runtime container
 FROM alpine:${ALPINE_VERSION}est

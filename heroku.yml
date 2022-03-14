@@ -6,7 +6,7 @@ build:
   docker:
     web: Dockerfile
   run:
-    web: exec /opt/app/start_server migrate && /opt/app/bin/start_server seed && /opt/app/bin/start_server start
+    web: exec /opt/app/bin/server start
   config:
     MIX_ENV: prod
     SECRET_KEY_BASE: $SECRET_KEY_BASE
