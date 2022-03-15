@@ -41,13 +41,10 @@ RUN cd ${phoenix_subdir}/assets \
   && npm install \
   && npm run deploy \
   && cd .. \
-  && mix phx.digest \
-  && release_dir=`ls -d _build/${MIX_ENV}/rel/${app_name}/releases/*/` \
-  &&  mix distillery.release --verbose --name ${app_name} \
-  &&  cp ${release_dir}/${app_name}.tar.gz /opt/release  \
-  && tar -xzf ${app_name}.tar.gz \
-  &&  rm ${app_name}.tar.gz
-  && cp /opt/release/bin/${app_name} /opt/release/bin/server
+  && mix phx.digest
+RUN mix release ${app_name} \
+  && mv _build/${build_env}/rel/${app_name} /opt/release \
+  && mv /opt/release/bin/${app_name} /opt/release/bin/server
 
 # Runtime container
 FROM alpine:${ALPINE_VERSION}est
