@@ -18,7 +18,7 @@ To setup your server:
   
   
 To start your Phoenix server:
-
+  * Start the docker-compose
   * Setup the application `mix setup`
   * Install Node.js dependencies with `npm install` inside the `assets` directory
   * Start Phoenix endpoint with `mix phx.server`
