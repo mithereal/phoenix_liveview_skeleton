@@ -3,5 +3,14 @@
   "description": "A Phoenix Liveview Sample with Auth",
   "repository": "https://github.com/mithereal/phoenix_liveview_skeleton",
   "logo": "",
-  "keywords": ["phoenix", "elixir", "liveview" ]
+  "keywords": ["phoenix", "elixir", "liveview" ],
+  "addons": [ "heroku-postgresql"],
+  "buildpacks": [
+    {
+      "url": "https://github.com/HashNuke/heroku-buildpack-elixir.git"
+    },
+    {
+      "url": "https://github.com/gjaldon/heroku-buildpack-phoenix-static.git"
+    }
+  ]
 }
