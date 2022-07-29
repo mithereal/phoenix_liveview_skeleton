@@ -1,12 +1,12 @@
-<div id="userMenu"
+<div id="rootMenu"
      class="user_menu rounded shadow-md mt-2 absolute mt-12 top-0 right-0 min-w-full overflow-auto z-30 invisible">
     <ul class="list-reset">
         <%= if @current_user do %>
 
-        <li><a href="/user/settings"
+        <li><a href="/admin/settings"
                class="px-4 py-2 block  no-underline hover:no-underline">My
             account</a></li>
-        <li><a href="/user/settings"
+        <li><a href="/admin/settings"
                class="px-4 py-2 block text-gray-900 hover:bg-gray-300 no-underline hover:no-underline">Settings</a>
         </li>
         <li>

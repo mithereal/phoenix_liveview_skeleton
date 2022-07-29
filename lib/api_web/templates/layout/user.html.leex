@@ -25,9 +25,9 @@
     <%= live_title_tag assigns[:page_title] || "App", suffix: " · Phoenix Framework" %>
 
      <link phx-track-static rel="stylesheet" href="<%= Routes.static_path(@conn, "/css/font-awesome/all.css") %>"/>
-     <link phx-track-static rel="stylesheet" href="<%= Routes.static_path(@conn, "/css/admin.css") %>"/>
+     <link phx-track-static rel="stylesheet" href="<%= Routes.static_path(@conn, "/css/user.css") %>"/>
 
-    <script defer phx-track-static type="text/javascript" src="<%= Routes.static_path(@conn, "/js/admin.js") %>"></script>
+    <script defer phx-track-static type="text/javascript" src="<%= Routes.static_path(@conn, "/js/user.js") %>"></script>
 
  <%= render "_apple_touch_header.html", assigns %>
 
