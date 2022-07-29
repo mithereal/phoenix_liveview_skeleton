@@ -8,15 +8,14 @@
   "env": {
     "MIX_ENV": "prod",
     "OTP_COOKIE": {
-      "description": "This_gets_generated",
+      "description": "The OTP Secret",
       "generator": "secret"
     },
     "SECRET_KEY_BASE": {
-      "description": "This_gets_generated",
+      "description": "The Application Secret",
       "generator": "secret"
     }
   },
-  "config": [ "SECRET_KEY_BASE=fvds787ufkdssfd", "OTP_COOKIE=fdksl78fd877u"],
   "buildpacks": [
     {
       "url": "https://github.com/HashNuke/heroku-buildpack-elixir.git"

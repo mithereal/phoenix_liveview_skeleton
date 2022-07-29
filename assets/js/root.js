@@ -16,9 +16,6 @@ import {Socket} from "phoenix"
 import NProgress from "nprogress"
 import {LiveSocket} from "phoenix_live_view"
 
-import Analytics from 'analytics'
-import googleAnalytics from '@analytics/google-analytics'
-
 const csrfToken = document.querySelector("meta[name='csrf-token']").getAttribute("content")
 const liveSocket = new LiveSocket("/live", Socket, {params: {_csrf_token: csrfToken}})
 
@@ -27,18 +24,6 @@ const liveSocket = new LiveSocket("/live", Socket, {params: {_csrf_token: csrfTo
      navigator.serviceWorker.register('/js/service-worker.js');
    });
  }
-
-const analytics = Analytics({
-  app: 'demo-liveview-app',
-  plugins: [
-    googleAnalytics({
-      trackingId: 'UA-192543999-1'
-    })
-  ]
-})
-
-
-analytics.page()
 
 window.addEventListener("phx:page-loading-start", info => NProgress.start())
 window.addEventListener("phx:page-loading-stop", info => NProgress.done())
