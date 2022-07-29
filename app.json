@@ -5,6 +5,18 @@
   "logo": "",
   "keywords": ["phoenix", "elixir", "liveview" ],
   "addons": [ "heroku-postgresql"],
+  "env": {
+    "MIX_ENV": "production",
+    "OTP_COOKIE": {
+      "description": "This_gets_generated",
+      "generator": "secret"
+    },
+    "SECRET_KEY_BASE": {
+      "description": "This_gets_generated",
+      "generator": "secret"
+    }
+  },
+  "config": [ "SECRET_KEY_BASE=fvds787ufkdssfd", "OTP_COOKIE=fdksl78fd877u"],
   "buildpacks": [
     {
       "url": "https://github.com/HashNuke/heroku-buildpack-elixir.git"
