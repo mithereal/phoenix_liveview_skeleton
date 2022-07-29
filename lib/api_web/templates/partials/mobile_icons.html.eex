@@ -1,5 +1,5 @@
 <section class="mobile-icons">
-    <a id="GooglePlayIcon" class="mobile-icon" href="https://play.google.com/store/apps/details?id=com.pokerl33t"
+    <a id="GooglePlayIcon" class="mobile-icon" href="https://play.google.com/store/apps/details?id=<%= Application.get_env(:api, :google_play_id, "") %>"
        target="_blank" name="google">
         <picture>
             <source media="(min-width: 1025px)"

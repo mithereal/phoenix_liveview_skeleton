@@ -15,7 +15,8 @@ secret_key_base = "4rIGvcjT1Li5zkXo0ZIEjoaSKzDfhCiMVKvgOjinBRT2J1wJxUkNsCGlZd0Pf
 host = "localhost"
 
 config :api,
-  ecto_repos: [Api.Repo]
+  ecto_repos: [Api.Repo],
+  google_play_id: ""
 
 # Configures the endpoint
 config :api, ApiWeb.Endpoint,
