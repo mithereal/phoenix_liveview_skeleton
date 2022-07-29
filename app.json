@@ -6,7 +6,7 @@
   "keywords": ["phoenix", "elixir", "liveview" ],
   "addons": [ "heroku-postgresql"],
   "env": {
-    "MIX_ENV": "production",
+    "MIX_ENV": "prod",
     "OTP_COOKIE": {
       "description": "This_gets_generated",
       "generator": "secret"
