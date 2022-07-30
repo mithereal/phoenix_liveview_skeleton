@@ -7,19 +7,19 @@
     <meta name="viewport"
           content="width=device-width, initial-scale=1.0, minimum-scale = 1, maximum-scale = 1, user-scalable = no"/>
     <meta name="author" content="@mithereal"/>
-    <meta name="description" content="description here"/>
-    <meta name="keywords" content="keywords,here"/>
-    <meta name="robots" content="noindex, nofollow" />
-    <meta name="application-name" content="" />
-    <meta name="msapplication-starturl" content="<%= ApiWeb.Endpoint.url() %>"
-    <meta name="theme-color" content="#4285f4"/>
+    <meta name="description" content="<%= Application.get_env(:api, :description, "") %>"/>
+    <meta name="keywords" content="<%= Application.get_env(:api, :keywords, "") %>"/>
+    <meta name="robots" content="<%= Application.get_env(:api, :robots, "noindex, nofollow") %>" />
+    <meta name="application-name" content="<%= Application.get_env(:api, :application_name, "") %>" />
+    <meta name="msapplication-starturl" content="<%= ApiWeb.Endpoint.url() %>" />
+    <meta name="theme-color" content="<%= Application.get_env(:api, :theme_color, "#4285f4") %>"/>
 
-    <meta property="og:type" content="website"/>
-    <meta property="og:title" content=""/>
-    <meta property="og:url" content="<%= ApiWeb.Endpoint.url() %>">
+    <meta property="og:type" content="<%= Application.get_env(:api, :og_type, "website") %>"/>
+    <meta property="og:title" content="<%= Application.get_env(:api, :og_title, "") %>"/>
+    <meta property="og:url" content="<%= ApiWeb.Endpoint.url() %>"/>
     <meta property="og:image" content="<%= ApiWeb.Endpoint.url() %>/images/api_richSnippet.png"/>
-    <meta property="og:description" content=""/>
-    <meta property="og:locale" content="en_US"/>
+    <meta property="og:description" content="<%= Application.get_env(:api, :og_description, "") %>"/>
+    <meta property="og:locale" content="<%= Application.get_env(:api, :og_locale, "en_US") %>"/>
 
      <%= csrf_meta_tag() %>
     <%= live_title_tag assigns[:page_title] || "App", suffix: " · Phoenix Framework" %>
