@@ -81,7 +81,7 @@ module.exports = (env, options) => {
             }]),
             new CopyWebpackPlugin([{
                 from: 'node_modules/@fortawesome/fontawesome-free/webfonts/',
-                to: '../css/webfonts/'
+                to: '../webfonts/'
             }]),
             new CopyWebpackPlugin([{
                 from: 'node_modules/@fortawesome/fontawesome-free/svgs/',

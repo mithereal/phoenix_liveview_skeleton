@@ -5,40 +5,40 @@ defmodule ApiWeb.Router do
   alias ApiWeb.Plug.EnsureRole
 
   pipeline :browser do
-    plug :accepts, ["html"]
-    plug :fetch_session
-    plug :fetch_live_flash
-    plug :put_root_layout, {ApiWeb.LayoutView, :root}
-    plug :protect_from_forgery
-    plug :put_secure_browser_headers
-    plug :fetch_current_user
+    plug(:accepts, ["html"])
+    plug(:fetch_session)
+    plug(:fetch_live_flash)
+    plug(:put_root_layout, {ApiWeb.LayoutView, :root})
+    plug(:protect_from_forgery)
+    plug(:put_secure_browser_headers)
+    plug(:fetch_current_user)
     plug(Smlr, enable: false)
   end
 
   pipeline :admin_browser do
-    plug :accepts, ["html"]
-    plug :fetch_session
-    plug :fetch_live_flash
-    plug :put_root_layout, {ApiWeb.LayoutView, "admin.html"}
-    plug :protect_from_forgery
-    plug :put_secure_browser_headers
-    plug :fetch_current_user
+    plug(:accepts, ["html"])
+    plug(:fetch_session)
+    plug(:fetch_live_flash)
+    plug(:put_root_layout, {ApiWeb.LayoutView, "admin.html"})
+    plug(:protect_from_forgery)
+    plug(:put_secure_browser_headers)
+    plug(:fetch_current_user)
     plug(Smlr, enable: false)
   end
 
   pipeline :user_browser do
-    plug :accepts, ["html"]
-    plug :fetch_session
-    plug :fetch_live_flash
-    plug :put_root_layout, {ApiWeb.LayoutView, "user.html"}
-    plug :protect_from_forgery
-    plug :put_secure_browser_headers
-    plug :fetch_current_user
+    plug(:accepts, ["html"])
+    plug(:fetch_session)
+    plug(:fetch_live_flash)
+    plug(:put_root_layout, {ApiWeb.LayoutView, "user.html"})
+    plug(:protect_from_forgery)
+    plug(:put_secure_browser_headers)
+    plug(:fetch_current_user)
     plug(Smlr, enable: false)
   end
 
   pipeline :api do
-    plug :accepts, ["json"]
+    plug(:accepts, ["json"])
     plug(Smlr, enable: false)
   end
 
@@ -78,85 +78,83 @@ defmodule ApiWeb.Router do
   end
 
   pipeline :user do
-    plug EnsureRole, [:admin, :user]
+    plug(EnsureRole, [:admin, :user])
   end
 
   pipeline :admin do
-    plug EnsureRole, :admin
+    plug(EnsureRole, :admin)
   end
 
   ## Authentication routes
 
   scope "/user", ApiWeb do
-    pipe_through [:browser, :redirect_if_user_is_authenticated]
+    pipe_through([:browser, :redirect_if_user_is_authenticated])
 
-    get "/register", UserRegistrationController, :new
-    post "/register", UserRegistrationController, :create
-    get "/log_in", UserSessionController, :new
-    post "/log_in", UserSessionController, :create
-    get "/reset_password", UserResetPasswordController, :new
-    post "/reset_password", UserResetPasswordController, :create
-    get "/reset_password/:token", UserResetPasswordController, :edit
-    put "/reset_password/:token", UserResetPasswordController, :update
+    get("/register", UserRegistrationController, :new)
+    post("/register", UserRegistrationController, :create)
+    get("/log_in", UserSessionController, :new)
+    post("/log_in", UserSessionController, :create)
+    get("/reset_password", UserResetPasswordController, :new)
+    post("/reset_password", UserResetPasswordController, :create)
+    get("/reset_password/:token", UserResetPasswordController, :edit)
+    put("/reset_password/:token", UserResetPasswordController, :update)
   end
 
   scope "/user/settings", ApiWeb do
-    pipe_through [:browser, :require_authenticated_user]
+    pipe_through([:browser, :require_authenticated_user])
 
-    get "/", UserSettingsController, :edit
-    put "/update_password", UserSettingsController, :update_password
-    put "/update_email", UserSettingsController, :update_email
-    get "/confirm_email/:token", UserSettingsController, :confirm_email
+    get("/", UserSettingsController, :edit)
+    put("/update_password", UserSettingsController, :update_password)
+    put("/update_email", UserSettingsController, :update_email)
+    get("/confirm_email/:token", UserSettingsController, :confirm_email)
   end
 
   scope "/user", ApiWeb do
-    pipe_through [:browser]
+    pipe_through([:browser])
 
-    get "/force_logout", UserSessionController, :force_logout
-    get "/log_out", UserSessionController, :delete
-    delete "/log_out", UserSessionController, :delete
-    get "/confirm", UserConfirmationController, :new
-    post "/confirm", UserConfirmationController, :create
-    get "/confirm/:token", UserConfirmationController, :confirm
+    get("/force_logout", UserSessionController, :force_logout)
+    get("/log_out", UserSessionController, :delete)
+    delete("/log_out", UserSessionController, :delete)
+    get("/confirm", UserConfirmationController, :new)
+    post("/confirm", UserConfirmationController, :create)
+    get("/confirm/:token", UserConfirmationController, :confirm)
   end
 
   scope "/home", ApiWeb do
-    pipe_through [:user_browser, :require_authenticated_user, :user]
+    pipe_through([:user_browser, :require_authenticated_user, :user])
 
-    live "/", UserDashboardLive
+    live("/", UserDashboardLive)
   end
 
   scope "/admin", ApiWeb do
-    pipe_through [:admin_browser, :require_authenticated_user, :admin]
+    pipe_through([:admin_browser, :require_authenticated_user, :admin])
 
-    live "/", AdminDashboardLive
-    live "/analytics", AdminDashboardAnalyticsLive
-    live "/accounts/online", AdminDashboardAccountsOnlineLive
-    live "/accounts/online/:email", AdminDashboardAccountsOnlineEmailLive
+    live("/", AdminDashboardLive)
+    live("/analytics", AdminDashboardAnalyticsLive)
+    live("/accounts/online", AdminDashboardAccountsOnlineLive)
+    live("/accounts/online/:email", AdminDashboardAccountsOnlineEmailLive)
   end
 
-
   scope "/admin", ApiWeb do
-    pipe_through [:admin_browser, :require_authenticated_user, :admin]
+    pipe_through([:admin_browser, :require_authenticated_user, :admin])
 
-    get "/accounts", AccountsController, :list
-    get "/profile", AdminProfileController, :edit
-    get "/profile/:email", AdminProfileController, :get
+    get("/accounts", AccountsController, :list)
+    get("/profile", AdminProfileController, :edit)
+    get("/profile/:email", AdminProfileController, :get)
   end
 
   scope "/admin/settings", ApiWeb do
-    pipe_through [:admin_browser, :require_authenticated_user, :admin]
+    pipe_through([:admin_browser, :require_authenticated_user, :admin])
 
-    get "/", AdminSettingsController, :edit
-    put "/update_password", AdminSettingsController, :update_password
-    put "/update_email", AdminSettingsController, :update_email
+    get("/", AdminSettingsController, :edit)
+    put("/update_password", AdminSettingsController, :update_password)
+    put("/update_email", AdminSettingsController, :update_email)
   end
 
-
   scope "/", ApiWeb do
-    pipe_through [:browser]
+    pipe_through([:browser])
 
-    live "/", PageLive
+    live("/", PageLive)
   end
 
   # Other scopes may use custom stacks.
@@ -173,8 +171,8 @@ defmodule ApiWeb.Router do
     import Phoenix.LiveDashboard.Router
 
     scope "/" do
-      pipe_through :browser
-      live_dashboard "/dashboard", metrics: ApiWeb.Telemetry
+      pipe_through(:browser)
+      live_dashboard("/dashboard", metrics: ApiWeb.Telemetry)
     end
   end
 end

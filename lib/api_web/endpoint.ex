@@ -27,7 +27,7 @@ defmodule ApiWeb.Endpoint do
     at: "/",
     from: :api,
     gzip: false,
-    only: ~w(css fonts images js favicon.ico robots.txt service_worker.js cache_manifest.json)
+    only: ~w(css fonts images js webfonts favicon.ico robots.txt service_worker.js cache_manifest.json)
 
   # Code reloading can be explicitly enabled under the
   # :code_reloader configuration of your endpoint.
