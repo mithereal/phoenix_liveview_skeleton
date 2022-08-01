@@ -1,4 +1,5 @@
 defmodule ApiWeb.UserAuth do
+
   import Plug.Conn
   import Phoenix.Controller
 
@@ -29,6 +30,7 @@ defmodule ApiWeb.UserAuth do
   def log_in_user(conn, user, params \\ %{}) do
     token = Accounts.generate_user_session_token(user)
     user_return_to = get_session(conn, :user_return_to)
+    role = :user
 
     Api.User.Server.Supervisor.start(user.email)
 
@@ -38,7 +40,7 @@ defmodule ApiWeb.UserAuth do
     |> put_session(:user, user)
     |> put_session(:live_socket_id, "users_sessions:#{Base.url_encode64(token)}")
     |> maybe_write_remember_me_cookie(token, params)
-    |> redirect(to: user_return_to || signed_in_path(conn, user.role))
+    |> redirect(to: user_return_to || signed_in_path(conn, role))
   end
 
   defp maybe_write_remember_me_cookie(conn, token, %{"remember_me" => "true"}) do

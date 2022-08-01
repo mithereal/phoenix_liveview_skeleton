@@ -18,6 +18,8 @@ defmodule ApiWeb.Plug.EnsureRole do
   alias Phoenix.Controller
   alias Plug.Conn
 
+  use Terminator
+
   @doc false
   @spec init(any()) :: any()
   def init(config), do: config
@@ -29,15 +31,16 @@ defmodule ApiWeb.Plug.EnsureRole do
 
     (user_token &&
        Accounts.get_user_by_session_token(user_token))
-    |> has_role?(roles)
+    |> user_has_role?(roles)
     |> maybe_halt(conn)
   end
 
-  defp has_role?(%User{} = user, roles) when is_list(roles),
-    do: Enum.any?(roles, &has_role?(user, &1))
+  defp user_has_role?(user, roles) do
+      Enum.map(roles, fn role -> has_role?(user.performer, role) end)
+      |> Enum.member?(:ok)
+  end
 
-  defp has_role?(%User{role: role}, role), do: true
-  defp has_role?(_user, _role), do: false
+  defp user_has_role?(_user, _role), do: false
 
   defp maybe_halt(true, conn), do: conn
 

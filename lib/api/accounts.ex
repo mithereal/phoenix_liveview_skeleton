@@ -3,6 +3,8 @@ defmodule Api.Accounts do
   The Accounts context.
   """
 
+  use Terminator
+
   import Ecto.Query, warn: false
   alias Api.Repo
   alias Api.Accounts.{User, UserToken, UserNotifier}
@@ -23,7 +25,7 @@ defmodule Api.Accounts do
 
   """
   def get_user_by_email(email) when is_binary(email) do
-    Repo.get_by(User, email: email)
+    Repo.get_by(User, email: email) |> load_and_authorize_performer()
   end
 
   @doc """
@@ -55,7 +57,7 @@ defmodule Api.Accounts do
   def get_user_by_email_and_password(email, password)
       when is_binary(email) and is_binary(password) do
     user = Repo.get_by(User, email: email)
-    if User.valid_password?(user, password), do: user
+    if User.valid_password?(user, password), do: user |> load_and_authorize_performer()
   end
 
   @doc """
@@ -72,7 +74,7 @@ defmodule Api.Accounts do
       ** (Ecto.NoResultsError)
 
   """
-  def get_user!(id), do: Repo.get!(User, id)
+  def get_user!(id), do: Repo.get!(User, id) |> load_and_authorize_performer()
 
   ## User registration
 
@@ -91,9 +93,15 @@ defmodule Api.Accounts do
   def register_user(attrs) do
     %User{}
     |> User.registration_changeset(attrs)
-    |> Repo.insert()
+    |> Repo.insert!()
+    |> grant_role("user")
+    |> load_and_authorize_performer()
   end
 
+  defp grant_role(performer, role) do
+    role = Repo.get_by!(Terminator.Role, identifier: role)
+    Terminator.Performer.grant(performer, role)
+  end
   @doc """
   Registers an admin.
 
@@ -108,7 +116,7 @@ defmodule Api.Accounts do
   """
   def register_admin(attrs) do
     %User{}
-    |> User.admin_registration_changeset(attrs)
+    |> User.registration_changeset(attrs)
     |> Repo.insert()
   end
 

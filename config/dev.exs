@@ -1,4 +1,4 @@
-use Mix.Config
+import Config
 
 # Configure your database
 config :api, Api.Repo,
@@ -9,6 +9,15 @@ config :api, Api.Repo,
   port: 55_432,
   show_sensitive_data_on_connection_error: true,
   pool_size: 10
+
+config :terminator, Terminator.Repo,
+       username: "postgres",
+       password: "postgres",
+       database: "api_dev",
+       hostname: "localhost",
+       port: 55_432,
+       show_sensitive_data_on_connection_error: true,
+       pool_size: 10
 
 # For development, we disable any cache and enable
 # debugging and code reloading.

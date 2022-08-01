@@ -1,10 +1,12 @@
 defmodule Api.MixProject do
   use Mix.Project
 
+  Code.require_file("./vsn.exs", __DIR__)
+
   def project do
     [
       app: :api,
-      version: "0.1.0",
+      version: Vsn.version(),
       elixir: "~> 1.7",
       elixirc_paths: elixirc_paths(Mix.env()),
       compilers: [:phoenix, :gettext] ++ Mix.compilers(),
@@ -37,7 +39,7 @@ defmodule Api.MixProject do
       {:phoenix, "~> 1.5.8"},
       {:phoenix_ecto, "~> 4.1"},
       {:ecto_sql, "~> 3.4"},
-      {:postgrex, ">= 0.0.0"},
+      {:postgrex, ">= 0.15.0", override: true},
       {:phoenix_live_view, "~> 0.15.1"},
       {:floki, ">= 0.27.0", only: :test},
       {:phoenix_html, "~> 2.11"},
@@ -49,7 +51,6 @@ defmodule Api.MixProject do
       {:jason, "~> 1.0"},
       {:tesla, "~> 1.4.0"},
       {:plug_cowboy, "~> 2.0"},
-      {:ecto_enum, "~> 1.4"},
       {:plug_attack, "~> 0.4.2"},
       {:plug_secex, "~> 0.2.0"},
       {:remote_ip, "~> 0.2.1"},
@@ -61,7 +62,8 @@ defmodule Api.MixProject do
       {:exgravatar, "~> 2.0"},
       {:phx_gen_auth, "~> 0.6", only: [:dev], runtime: false},
       {:distillery, "~> 2.1"},
-      {:credo, "~> 1.5.0", only: [:dev, :test], runtime: false}
+      {:credo, "~> 1.5.0", only: [:dev, :test], runtime: false},
+      {:terminator, git: "https://github.com/mithereal/terminator.git"},
     ]
   end
 
@@ -74,7 +76,7 @@ defmodule Api.MixProject do
   defp aliases do
     [
       setup: ["deps.get", "ecto.setup", "cmd npm install --prefix assets"],
-      "ecto.setup": ["ecto.create", "ecto.migrate", "run priv/repo/seeds.exs"],
+      "ecto.setup": ["ecto.create", "Terminator.setup", "ecto.migrate", "run priv/repo/seeds.exs"],
       "ecto.reset": ["ecto.drop", "ecto.setup"],
       test: ["ecto.create --quiet", "ecto.migrate --quiet", "test"]
     ]

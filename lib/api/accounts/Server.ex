@@ -1,6 +1,7 @@
 defmodule Api.User.Server do
   require Logger
 
+  use Terminator
   use GenServer
 
   alias Api.User.Server, as: SERVER
@@ -40,6 +41,9 @@ defmodule Api.User.Server do
     }
 
     Logger.info("Started: User Server")
+
+    load_and_authorize_performer(user)
+
     {:ok, initial_state}
   end
 

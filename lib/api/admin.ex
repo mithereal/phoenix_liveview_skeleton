@@ -70,7 +70,7 @@ defmodule Api.Admin do
 
   """
   def get_user(hash) do
-    User.Server.show(hash)
+    SERVER.show(hash)
   end
 
   @doc """
@@ -86,7 +86,7 @@ defmodule Api.Admin do
 
   """
   def create_user(attrs \\ %{}) do
-    Game.Server.Supervisor.start(attrs)
+    Api.User.Server.Supervisor.start(attrs)
 
     # %USER{}
     # |> USER.changeset(attrs)
@@ -124,7 +124,7 @@ defmodule Api.Admin do
 
   """
   def delete_user(id) do
-    User.Server.Supervisor.stop(id)
+    Api.User.Server.Supervisor.stop(id)
   end
 
   @doc """

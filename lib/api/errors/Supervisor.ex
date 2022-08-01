@@ -1,7 +1,6 @@
 defmodule Api.Error.Server.Supervisor do
   use DynamicSupervisor
 
-  alias Api.Error.Server.Supervisor, as: SUPERVISOR
   alias Api.Error.Server, as: SERVER
 
   @name :error_supervisor
@@ -39,42 +38,9 @@ defmodule Api.Error.Server.Supervisor do
     {:ok, "success"}
   end
 
-  def stop(id) do
-    SERVER.shutdown(id)
+  def stop(id \\ false) do
+    SERVER.shutdown()
 
     {:ok, "success"}
-  end
-
-  def whereis(id) do
-    case Registry.lookup(@registry_name, id) do
-      [{pid, _}] -> pid
-      [] -> nil
-    end
-  end
-
-  def exists?(id) do
-    case Registry.lookup(@registry_name, id) do
-      [] -> false
-      _ -> true
-    end
-  end
-
-  def list do
-    keys =
-      Supervisor.which_children(@name)
-      |> Enum.map(fn {_, account_proc_pid, _, _} ->
-        Registry.keys(@registry_name, account_proc_pid)
-        |> List.first()
-      end)
-
-    keys
-    |> Enum.sort()
-  end
-
-  def process_exists?(hash) do
-    case Registry.lookup(@registry_name, hash) do
-      [] -> false
-      _ -> true
-    end
   end
 end

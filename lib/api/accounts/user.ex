@@ -1,21 +1,20 @@
 defmodule Api.Accounts.User do
   use Ecto.Schema
-  import Ecto.Changeset
-  import EctoEnum
 
-  defenum(RolesEnum, :role, [
-    :user,
-    :admin
-  ])
+  import Ecto.Changeset
+
+  alias Api.Repo
 
   @derive {Inspect, except: [:password]}
   schema "users" do
-    field :email, :string
-    field :password, :string, virtual: true
-    field :hashed_password, :string
-    field :confirmed_at, :naive_datetime
+    field(:email, :string)
+    field(:username, :string)
+    field(:password, :string, virtual: true)
+    field(:hashed_password, :string)
+    field(:confirmed_at, :naive_datetime)
 
-    field :role, RolesEnum, default: :user
+    belongs_to(:performer, Terminator.Performer)
+
     timestamps()
   end
 
@@ -28,19 +27,41 @@ defmodule Api.Accounts.User do
   also be very expensive to hash for certain algorithms.
   """
   def registration_changeset(user, attrs) do
-    user
-    |> cast(attrs, [:email, :password])
-    |> validate_email()
-    |> validate_password()
+    changeset =
+      user
+      |> cast(attrs, [:email, :password])
+      |> validate_email()
+      |> validate_password()
+      |> create_username()
+      |> create_performer()
   end
 
-  @doc """
-  A user changeset for registering admins.
-  """
-  def admin_registration_changeset(user, attrs) do
-    user
-    |> registration_changeset(attrs)
-    |> prepare_changes(&set_admin_role/1)
+  def changeset(user, attrs) do
+    changeset =
+      user
+      |> cast(attrs, [:email, :password])
+      |> validate_email()
+      |> validate_password()
+  end
+
+  defp create_performer(%{valid?: true} = changeset) do
+    {:ok, performer} = %Terminator.Performer{} |> Terminator.Repo.insert()
+
+    changeset
+    |> put_change(:performer_id, performer.id)
+  end
+
+  defp create_performer(changeset) do
+    %{changeset | valid?: false}
+  end
+
+  defp create_username(%{valid?: true} = changeset) do
+    changeset
+    |> put_change(:username, changeset.changes.email)
+  end
+
+  defp create_username(changeset) do
+    changeset
   end
 
   defp validate_email(changeset) do
@@ -68,11 +89,6 @@ defmodule Api.Accounts.User do
     changeset
     |> put_change(:hashed_password, Bcrypt.hash_pwd_salt(password))
     |> delete_change(:password)
-  end
-
-  defp set_admin_role(changeset) do
-    changeset
-    |> put_change(:role, :admin)
   end
 
   @doc """
