@@ -28,14 +28,7 @@ defmodule Api.User.Server.Supervisor do
     DynamicSupervisor.init(strategy: :one_for_one)
   end
 
-  def start(hash \\ nil) do
-    hash =
-      case hash do
-        nil -> Base.encode16(:crypto.strong_rand_bytes(8))
-        _ -> hash
-      end
-
-    user = %{hash: hash}
+  def start(user \\ nil) do
 
     child_spec = {Api.User.Server, user}
 

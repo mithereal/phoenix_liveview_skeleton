@@ -1,0 +1,14 @@
+<h1>Profile</h1>
+
+<%= form_for :user_profile, Routes.user_profile_path(@conn, :edit), fn f -> %>
+<%= label f, :first %>
+<%= text_input f, :first, required: true %>
+<%= error_tag f, :first %>
+
+<%= label f, :last %>
+<%= text_input f, :last, required: true %>
+<%= error_tag f, :last %>
+
+<div>
+    <%= submit "Save Profile" %>
+</div>

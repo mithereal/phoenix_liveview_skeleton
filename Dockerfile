@@ -47,7 +47,7 @@ RUN mix release ${app_name} \
   && mv /opt/release/bin/${app_name} /opt/release/bin/server
 
 # Runtime container
-FROM alpine:${ALPINE_VERSION}est
+FROM alpine:${ALPINE_VERSION}
 
 RUN set -ex && \
     apk update && \

@@ -30,8 +30,16 @@ defmodule Api.User.Server do
     end
   end
 
+  def update(hash, data) do
+    try do
+      GenServer.call(via_tuple(hash), {:update, data})
+    catch
+      :exit, _ -> {:error, "user_doesnt_exist"}
+    end
+  end
+
   def start_link(user) do
-    GenServer.start_link(__MODULE__, [user], name: via_tuple(user.hash))
+    GenServer.start_link(__MODULE__, [user], name: via_tuple(user.id))
   end
 
   @impl true
@@ -61,6 +69,7 @@ defmodule Api.User.Server do
 
   def shutdown(hash) do
     try do
+      Logger.info("Stop: User Server")
       GenServer.cast(via_tuple(hash), :shutdown)
       {:ok, to_string(hash) <> " has been shutdown"}
     catch
@@ -79,8 +88,9 @@ defmodule Api.User.Server do
         _from,
         state
       ) do
+    IO.puts "sdfdsfds"
     Task.async(fn -> Api.Admin.refresh_users() end)
-    {:stop, {:ok, "User Server Normal Shutdown"}, state.user.hash}
+    {:stop, :normal, state.user.hash}
   end
 
   def handle_cast(
@@ -97,5 +107,13 @@ defmodule Api.User.Server do
         state
       ) do
     {:reply, {:ok, state}, state}
+  end
+
+  def handle_call(
+        {:update, data},
+        _from,
+        state
+      ) do
+    {:reply, {:ok, data}, data}
   end
 end

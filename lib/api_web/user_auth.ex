@@ -27,12 +27,13 @@ defmodule ApiWeb.UserAuth do
   disconnected on log out. The line can be safely removed
   if you are not using LiveView.
   """
-  def log_in_user(conn, user, params \\ %{}) do
-    token = Accounts.generate_user_session_token(user)
+  def log_in_user(conn, username, params \\ %{}) do
+    token = Accounts.generate_user_session_token(username)
     user_return_to = get_session(conn, :user_return_to)
     role = :user
-
-    Api.User.Server.Supervisor.start(user.email)
+    user = %{}
+IO.inspect(username, label: "useremail")
+    Api.User.Server.Supervisor.start(username)
 
     conn
     |> renew_session()
@@ -86,8 +87,8 @@ defmodule ApiWeb.UserAuth do
     if live_socket_id = get_session(conn, :live_socket_id) do
       ApiWeb.Endpoint.broadcast(live_socket_id, "disconnect", %{})
     end
-
-    Api.User.Server.Supervisor.stop(user.email)
+IO.inspect(user, label: "user")
+    Api.User.Server.Supervisor.stop(user)
 
     conn
     |> renew_session()

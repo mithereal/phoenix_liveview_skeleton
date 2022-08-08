@@ -7,6 +7,7 @@ defmodule Api.Accounts.User do
 
   @derive {Inspect, except: [:password]}
   schema "users" do
+    field(:hash, :string, virtual: true)
     field(:email, :string)
     field(:username, :string)
     field(:password, :string, virtual: true)
@@ -149,5 +150,13 @@ defmodule Api.Accounts.User do
     else
       add_error(changeset, :current_password, "is not valid")
     end
+  end
+
+  def get_user(hash) do
+    Repo.get_by(Api.Accounts.User, hash: hash)
+  end
+
+  def update_user(data) do
+    Repo.update(Api.Accounts.User, data)
   end
 end

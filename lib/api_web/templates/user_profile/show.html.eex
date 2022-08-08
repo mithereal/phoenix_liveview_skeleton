@@ -1,0 +1,7 @@
+<h1>Profile</h1>
+
+<%= label f, :first %>
+<%= text_input f, :first, required: true %>
+
+<%= label f, :last %>
+<%= text_input f, :last, required: true %>

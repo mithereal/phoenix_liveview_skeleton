@@ -16,6 +16,7 @@ defmodule Api.Accounts.UserToken do
     field :token, :binary
     field :context, :string
     field :sent_to, :string
+    field :hash, :string
     belongs_to :user, Api.Accounts.User
 
     timestamps(updated_at: false)
@@ -28,7 +29,7 @@ defmodule Api.Accounts.UserToken do
   """
   def build_session_token(user) do
     token = :crypto.strong_rand_bytes(@rand_size)
-    {token, %Api.Accounts.UserToken{token: token, context: "session", user_id: user.id}}
+    {token, %Api.Accounts.UserToken{token: token, context: "session", user_id: user.id, hash: user.hash}}
   end
 
   @doc """

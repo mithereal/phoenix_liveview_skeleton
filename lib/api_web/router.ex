@@ -100,6 +100,19 @@ defmodule ApiWeb.Router do
     put("/reset_password/:token", UserResetPasswordController, :update)
   end
 
+  scope "/user", ApiWeb do
+    pipe_through([:user_browser, :require_authenticated_user])
+
+    get("/force_logout", UserSessionController, :force_logout)
+    get("/log_out", UserSessionController, :delete)
+    delete("/log_out", UserSessionController, :delete)
+    get("/confirm", UserConfirmationController, :new)
+    post("/confirm", UserConfirmationController, :create)
+    get("/confirm/:token", UserConfirmationController, :confirm)
+    get("/profile", UserProfileController, :edit)
+    post("/profile", UserProfileController, :update)
+  end
+
   scope "/user/settings", ApiWeb do
     pipe_through([:browser, :require_authenticated_user])
 
@@ -109,19 +122,8 @@ defmodule ApiWeb.Router do
     get("/confirm_email/:token", UserSettingsController, :confirm_email)
   end
 
-  scope "/user", ApiWeb do
-    pipe_through([:browser])
-
-    get("/force_logout", UserSessionController, :force_logout)
-    get("/log_out", UserSessionController, :delete)
-    delete("/log_out", UserSessionController, :delete)
-    get("/confirm", UserConfirmationController, :new)
-    post("/confirm", UserConfirmationController, :create)
-    get("/confirm/:token", UserConfirmationController, :confirm)
-  end
-
   scope "/home", ApiWeb do
-    pipe_through([:user_browser, :require_authenticated_user, :user])
+    pipe_through([:user_browser, :require_authenticated_user])
 
     live("/", UserDashboardLive)
   end
@@ -139,8 +141,7 @@ defmodule ApiWeb.Router do
     pipe_through([:admin_browser, :require_authenticated_user, :admin])
 
     get("/accounts", AccountsController, :list)
-    get("/profile", AdminProfileController, :edit)
-    get("/profile/:email", AdminProfileController, :get)
+    get("/profile/:email", UserProfileController, :show)
   end
 
   scope "/admin/settings", ApiWeb do
