@@ -4,6 +4,8 @@ ARG ALPINE_VERSION=3.15
 
 FROM elixir:1.13.3-alpine AS builder
 
+ENV MIX_HOME=/opt/mix
+
 ARG app_name=phoenix_liveview_skeleton
 ARG phoenix_subdir=.
 ARG build_env=prod
