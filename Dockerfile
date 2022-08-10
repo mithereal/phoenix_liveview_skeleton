@@ -73,8 +73,8 @@ RUN \
 USER "${USER}"
 
 # copy release executables
-COPY --from=build --chown="${USER}":"${USER}" /app/_build/"${MIX_ENV}"/rel/saturn ./
+COPY --from=build --chown="${USER}":"${USER}" /app/_build/"${MIX_ENV}"/rel/api ./
 
-ENTRYPOINT ["bin/saturn"]
+ENTRYPOINT ["bin/api"]
 
 CMD ["start"]
