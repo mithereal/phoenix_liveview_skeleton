@@ -21,8 +21,14 @@ if config_env() == :prod do
       You can generate one by calling: mix phx.gen.secret
       """
 
+  # IMPORTANT: Get the app_name we're using
+  app_name =
+    System.get_env("FLY_APP_NAME") ||
+      raise "FLY_APP_NAME not available"
+
   config :api, ApiWeb.Endpoint,
-         url: [host: System.get_env("RENDER_EXTERNAL_HOSTNAME") || "localhost", port: 80],
+         # IMPORTANT: tell our app about the host name to use when generating URLs
+         url: [host: "#{app_name}.fly.dev", port: 80],
          http: [
            # Enable IPv6 and bind on all interfaces.
            # Set it to  {0, 0, 0, 0, 0, 0, 0, 1} for local network only access.
