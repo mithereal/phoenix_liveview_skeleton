@@ -35,7 +35,7 @@ defmodule Api.MixProject do
   # Type `mix help deps` for examples and options.
   defp deps do
     [
- {:bcrypt_elixir, "~> 2.0"},
+      {:bcrypt_elixir, "~> 2.0"},
       {:phoenix, "~> 1.6.2"},
       {:phoenix_ecto, "~> 4.4"},
       {:ecto_sql, "~> 3.6"},
@@ -60,7 +60,7 @@ defmodule Api.MixProject do
       {:bypass, "~> 2.1"},
       {:inch_ex, ">= 0.0.0", only: :docs},
       {:smlr, ">= 0.0.0"},
-      {:exgravatar,  ">= 0.0.0"},
+      {:exgravatar, ">= 0.0.0"},
       {:scrivener_ecto, "~> 2.0"},
       {:distillery, "~> 2.1"},
       {:credo, "~> 1.5.0", only: [:dev, :test], runtime: false},
