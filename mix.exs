@@ -59,7 +59,7 @@ defmodule Api.MixProject do
       {:corsica, "~> 1.1"},
       {:bypass, "~> 2.1"},
       {:inch_ex, ">= 0.0.0", only: :docs},
-  #    {:smlr, ">= 0.0.0"},
+      {:smlr, git: "https://github.com/data-twister/smlr.git"},
       {:exgravatar, ">= 0.0.0"},
       {:scrivener_ecto, "~> 2.0"},
       {:distillery, "~> 2.1"},
