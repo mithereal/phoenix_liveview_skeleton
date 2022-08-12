@@ -100,7 +100,7 @@ defmodule ApiWeb do
   end
 
   def render_partial(template, assigns \\ []) do
-    Phoenix.render(ApiWeb.PartialsView, template, assigns)
+    Phoenix.View.render(ApiWeb.PartialsView, template, assigns)
   end
 
   def view_helpers do

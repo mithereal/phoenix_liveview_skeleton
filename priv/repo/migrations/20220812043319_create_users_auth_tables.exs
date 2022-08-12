@@ -19,7 +19,6 @@ defmodule Api.Repo.Migrations.CreateUsersAuthTables do
       add :user_id, references(:users, on_delete: :delete_all), null: false
       add :token, :binary, null: false
       add :context, :string, null: false
-      add :hash, :string, null: false
       add :sent_to, :string
       timestamps(updated_at: false)
     end

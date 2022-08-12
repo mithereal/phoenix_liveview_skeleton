@@ -37,7 +37,7 @@ defmodule ApiWeb.Plug.EnsureRole do
 
   defp user_has_role?(user, roles) do
       Enum.map(roles, fn role -> has_role?(user.performer, role) end)
-      |> Enum.member?(:ok)
+      |> Enum.member?(:ok) |> IO.inspect()
   end
 
   defp user_has_role?(_user, _role), do: false

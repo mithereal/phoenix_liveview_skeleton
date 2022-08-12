@@ -71,8 +71,8 @@ defmodule Api.User.Server.Supervisor do
     |> Enum.sort()
   end
 
-  def process_exists?(hash) do
-    case Registry.lookup(@registry_name, hash) do
+  def process_exists?(id) do
+    case Registry.lookup(@registry_name, id) do
       [] -> false
       _ -> true
     end

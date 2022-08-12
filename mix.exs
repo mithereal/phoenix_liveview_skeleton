@@ -1,15 +1,13 @@
 defmodule Api.MixProject do
   use Mix.Project
 
-  Code.require_file("./vsn.exs", __DIR__)
-
   def project do
     [
       app: :api,
-      version: Vsn.version(),
+      version: "1.0.0",
       elixir: "~> 1.12",
       elixirc_paths: elixirc_paths(Mix.env()),
-      compilers: [:phoenix, :gettext] ++ Mix.compilers(),
+      compilers: [:gettext] ++ Mix.compilers(),
       start_permanent: Mix.env() == :prod,
       aliases: aliases(),
       deps: deps()
@@ -46,7 +44,8 @@ defmodule Api.MixProject do
       {:floki, ">= 0.30.0", only: :test},
       {:phoenix_live_dashboard, "~> 0.5"},
       {:esbuild, "~> 0.2", runtime: Mix.env() == :dev},
-      {:swoosh, "~> 1.3"},
+      {:tailwind, "~> 0.1.6", runtime: Mix.env() == :dev},
+      {:dart_sass, "~> 0.5", runtime: Mix.env() == :dev},
       {:telemetry_metrics, "~> 0.6"},
       {:telemetry_poller, "~> 1.0"},
       {:gettext, "~> 0.18"},
@@ -79,12 +78,12 @@ defmodule Api.MixProject do
       setup: ["deps.get", "ecto.setup", "cmd npm install --prefix assets"],
       "ecto.setup": [
         "ecto.create",
-        "Terminator.install",
         "ecto.migrate",
         "run priv/repo/seeds.exs"
       ],
       "ecto.reset": ["ecto.drop", "ecto.setup"],
-      test: ["ecto.create --quiet", "Terminator.install", "ecto.migrate --quiet", "test"]
+      test: ["ecto.create --quiet",  "ecto.migrate --quiet", "test"],
+      "assets.deploy": ["tailwind default --minify", "esbuild default --minify", "phx.digest"]
     ]
   end
 end

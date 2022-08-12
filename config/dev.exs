@@ -31,13 +31,12 @@ config :api, ApiWeb.Endpoint,
   code_reloader: true,
   check_origin: false,
   watchers: [
-    node: [
-      "node_modules/webpack/bin/webpack.js",
-      "--mode",
-      "development",
-      "--watch-stdin",
-      cd: Path.expand("../assets", __DIR__)
-    ]
+    esbuild: {Esbuild, :install_and_run, [:default, ~w(--sourcemap=inline --watch)]},
+    esbuild_user: {Esbuild, :install_and_run, [:user, ~w(--sourcemap=inline --watch)]},
+    esbuild_admin: {Esbuild, :install_and_run, [:admin, ~w(--sourcemap=inline --watch)]},
+    tailwind: {Tailwind, :install_and_run, [:default, ~w(--watch)]},
+    tailwind_user: {Tailwind, :install_and_run, [:user, ~w(--watch)]},
+    tailwind_admin: {Tailwind, :install_and_run, [:admin, ~w(--watch)]}
   ]
 
 # ## SSL Support
@@ -84,3 +83,4 @@ config :phoenix, :stacktrace_depth, 20
 
 # Initialize plugs at runtime for faster development compilation
 config :phoenix, :plug_init_mode, :runtime
+

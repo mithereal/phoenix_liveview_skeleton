@@ -27,13 +27,13 @@ defmodule ApiWeb.UserAuth do
   disconnected on log out. The line can be safely removed
   if you are not using LiveView.
   """
-  def log_in_user(conn, username, params \\ %{}) do
-    token = Accounts.generate_user_session_token(username)
+  def log_in_user(conn, user, params \\ %{}) do
+    token = Accounts.generate_user_session_token(user)
     user_return_to = get_session(conn, :user_return_to)
+
     role = :user
-    user = %{}
-IO.inspect(username, label: "useremail")
-    Api.User.Server.Supervisor.start(username)
+
+    Api.User.Server.Supervisor.start(user)
 
     conn
     |> renew_session()
@@ -87,7 +87,7 @@ IO.inspect(username, label: "useremail")
     if live_socket_id = get_session(conn, :live_socket_id) do
       ApiWeb.Endpoint.broadcast(live_socket_id, "disconnect", %{})
     end
-IO.inspect(user, label: "user")
+
     Api.User.Server.Supervisor.stop(user)
 
     conn
@@ -124,12 +124,13 @@ IO.inspect(user, label: "user")
   Used for routes that require the user to not be authenticated.
   """
   def redirect_if_user_is_authenticated(conn, _opts) do
-    if conn.assigns[:current_user] do
+    if conn.assigns[:current_user] && conn.assigns[:user] do
       user = get_session(conn, :user)
-      Api.User.Server.Supervisor.start(user.email)
+      role = :user
+      Api.User.Server.Supervisor.start(user)
 
       conn
-      |> redirect(to: signed_in_path(conn, user.role))
+      |> redirect(to: signed_in_path(conn, role))
       |> halt()
     else
       conn
@@ -146,7 +147,7 @@ IO.inspect(user, label: "user")
     if conn.assigns[:current_user] do
       user = get_session(conn, :user)
 
-      Api.User.Server.Supervisor.start(user.email)
+      Api.User.Server.Supervisor.start(user)
       conn
     else
       conn
@@ -173,7 +174,8 @@ IO.inspect(user, label: "user")
   defp signed_in_path(conn, role \\ :user) do
     case role do
       :admin -> "/admin"
-      _ -> "/home"
+      :user -> "/home"
+      _ -> "/"
     end
   end
 end

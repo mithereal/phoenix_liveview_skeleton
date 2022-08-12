@@ -43,6 +43,54 @@ config :logger, :console,
 # Use Jason for JSON parsing in Phoenix
 config :phoenix, :json_library, Jason
 
+config :esbuild,
+       version: "0.12.18",
+       default: [
+         args:
+           ~w(js/root.js --bundle --target=es2016 --outdir=../priv/static/assets --external:/fonts/* --external:/images/*),
+         cd: Path.expand("../assets", __DIR__),
+         env: %{"NODE_PATH" => Path.expand("../deps", __DIR__)}
+       ],
+       user: [
+         args:
+           ~w(js/user.js --bundle --target=es2016 --outdir=../priv/static/assets --external:/fonts/* --external:/images/*),
+         cd: Path.expand("../assets", __DIR__),
+         env: %{"NODE_PATH" => Path.expand("../deps", __DIR__)}
+       ],
+       admin: [
+         args:
+           ~w(js/admin.js --bundle --target=es2016 --outdir=../priv/static/assets --external:/fonts/* --external:/images/*),
+         cd: Path.expand("../assets", __DIR__),
+         env: %{"NODE_PATH" => Path.expand("../deps", __DIR__)}
+       ]
+
+config :tailwind,
+       version: "3.1.6",
+       default: [
+         args: ~w(
+      --config=tailwind.config.js
+      --input=css/base.css
+      --output=../priv/static/assets/base.css
+    ),
+         cd: Path.expand("../assets", __DIR__)
+       ],
+       user: [
+         args: ~w(
+      --config=tailwind.config.js
+      --input=css/user.css
+      --output=../priv/static/assets/user.css
+    ),
+         cd: Path.expand("../assets", __DIR__)
+       ],
+       admin: [
+         args: ~w(
+      --config=tailwind.config.js
+      --input=css/admin.css
+      --output=../priv/static/assets/admin.css
+    ),
+         cd: Path.expand("../assets", __DIR__)
+       ]
+
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
 import_config "#{Mix.env()}.exs"

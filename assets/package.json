@@ -1,6 +1,6 @@
 {
   "repository": {},
-  "description": " ",
+  "description": "Phoenix Liveview Skeleton",
   "license": "MIT",
   "scripts": {
     "deploy": "webpack --mode production",

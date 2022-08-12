@@ -22,17 +22,17 @@ defmodule Api.User.Server do
 
   ## client funs
 
-  def show(hash) do
+  def show(id) do
     try do
-      GenServer.call(via_tuple(hash), :show)
+      GenServer.call(via_tuple(id), :show)
     catch
       :exit, _ -> {:error, "user_doesnt_exist"}
     end
   end
 
-  def update(hash, data) do
+  def update(id, data) do
     try do
-      GenServer.call(via_tuple(hash), {:update, data})
+      GenServer.call(via_tuple(id), {:update, data})
     catch
       :exit, _ -> {:error, "user_doesnt_exist"}
     end
@@ -55,23 +55,23 @@ defmodule Api.User.Server do
     {:ok, initial_state}
   end
 
-  def via_tuple(hash) do
-    {:via, Registry, {@public_registry_name, hash}}
+  def via_tuple(id) do
+    {:via, Registry, {@public_registry_name, id}}
   end
 
-  def start_server(hash) do
+  def start_server(id) do
     try do
-      GenServer.call(via_tuple(hash), {:start_server})
+      GenServer.call(via_tuple(id), {:start_server})
     catch
       :exit, _ -> {:error, "user_doesnt_exist"}
     end
   end
 
-  def shutdown(hash) do
+  def shutdown(user) do
     try do
       Logger.info("Stop: User Server")
-      GenServer.cast(via_tuple(hash), :shutdown)
-      {:ok, to_string(hash) <> " has been shutdown"}
+      GenServer.cast(via_tuple(user.id), :shutdown)
+      {:ok, to_string(user.id) <> " has been shutdown"}
     catch
       :exit, _ -> {:error, "user_doesnt_exist"}
     end
@@ -88,9 +88,8 @@ defmodule Api.User.Server do
         _from,
         state
       ) do
-    IO.puts "sdfdsfds"
     Task.async(fn -> Api.Admin.refresh_users() end)
-    {:stop, :normal, state.user.hash}
+    {:stop, :normal, state.user.id}
   end
 
   def handle_cast(
