@@ -62,7 +62,7 @@ defmodule Api.ReleaseTasks do
     Path.join([priv_dir, repo_underscore, filename])
   end
 
-    def seed(_argv) do
+  def seed(_argv) do
     start_services()
 
     run_seeds()
@@ -70,7 +70,7 @@ defmodule Api.ReleaseTasks do
     stop_services()
   end
 
-    defp run_seeds() do
+  defp run_seeds() do
     # Run the seed script if it exists
     seed_script = priv_path_for(Repo, "seeds.exs")
 
@@ -79,5 +79,4 @@ defmodule Api.ReleaseTasks do
       Code.eval_file(seed_script)
     end
   end
-
 end

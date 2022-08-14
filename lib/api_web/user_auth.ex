@@ -1,5 +1,4 @@
 defmodule ApiWeb.UserAuth do
-
   import Plug.Conn
   import Phoenix.Controller
 

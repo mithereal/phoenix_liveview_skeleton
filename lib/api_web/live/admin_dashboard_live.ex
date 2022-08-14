@@ -43,12 +43,11 @@ defmodule ApiWeb.AdminDashboardLive do
 
     {:noreply, socket}
   end
+
   def handle_info(
-        {_requesting_module, [:data, :updated],
-         %{errors: errors}},
+        {_requesting_module, [:data, :updated], %{errors: errors}},
         socket
       ) do
-
     total_errors = Enum.count(errors)
     socket = assign(socket, :total_errors, total_errors)
     socket = assign(socket, :errors, errors)

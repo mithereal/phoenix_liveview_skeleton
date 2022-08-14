@@ -29,13 +29,11 @@ defmodule Api.Channel do
       end
 
       def broadcast(params \\ {:error, "Data is empty"}, topic, room) do
-
         params
         |> broadcast_subscribers([:data, :updated], topic, room)
       end
 
       defp broadcast_subscribers({:ok, result}, event) do
-
         PubSub.broadcast(Api.PubSub, @topic, {__MODULE__, event, result})
         {:ok, result}
       end

@@ -6,7 +6,7 @@ defmodule ApiWeb.AdminFlamesLive do
   def mount(_params, session, socket) do
     socket = assign_defaults(session, socket)
 
-     if connected?(socket), do: Api.Admin.subscribe("Admin", "Errors")
+    if connected?(socket), do: Api.Admin.subscribe("Admin", "Errors")
 
     {:ok, socket}
   end
@@ -20,11 +20,9 @@ defmodule ApiWeb.AdminFlamesLive do
   end
 
   def handle_info(
-        {_requesting_module, [:data, :updated],
-         %{errors: errors}},
+        {_requesting_module, [:data, :updated], %{errors: errors}},
         socket
       ) do
-
     total_errors = Enum.count(errors)
     socket = assign(socket, :total_errors, total_errors)
     socket = assign(socket, :errors, errors)

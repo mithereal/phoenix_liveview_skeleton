@@ -31,7 +31,13 @@
           "apps/*/test/",
           "apps/*/web/"
         ],
-        excluded: [~r"/_build/", ~r"/deps/", ~r"/node_modules/", ~r"/package-lock.json", ~r"/package.json"]
+        excluded: [
+          ~r"/_build/",
+          ~r"/deps/",
+          ~r"/node_modules/",
+          ~r"/package-lock.json",
+          ~r"/package.json"
+        ]
       },
       #
       # Load and configure plugins here:
@@ -93,7 +99,7 @@
         #
         ## Readability Checks
         #
-       # {Credo.Check.Readability.AliasOrder, []},
+        # {Credo.Check.Readability.AliasOrder, []},
         {Credo.Check.Readability.FunctionNames, []},
         {Credo.Check.Readability.LargeNumbers, []},
         {Credo.Check.Readability.MaxLineLength, false},

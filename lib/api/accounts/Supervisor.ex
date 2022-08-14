@@ -29,7 +29,6 @@ defmodule Api.User.Server.Supervisor do
   end
 
   def start(user \\ nil) do
-
     child_spec = {Api.User.Server, user}
 
     DynamicSupervisor.start_child(@name, child_spec)

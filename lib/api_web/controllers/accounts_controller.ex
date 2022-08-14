@@ -4,7 +4,6 @@ defmodule ApiWeb.AccountsController do
   alias Api.Accounts
   alias ApiWeb.UserAuth
 
-
   def edit(conn, _params) do
     render(conn, "edit.html")
   end
@@ -12,5 +11,4 @@ defmodule ApiWeb.AccountsController do
   def list(conn, _params) do
     render(conn, "list.html")
   end
-
 end

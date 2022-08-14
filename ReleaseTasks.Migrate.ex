@@ -1,7 +1,7 @@
 defmodule ReleaseTasks.Migrate do
   @moduledoc "Mix task to run Ecto database migrations"
 
-  #Name of app as used by Application.get_env
+  # Name of app as used by Application.get_env
   @app :api
   # Name of app repo module
   @repo_module Api.Repo
@@ -14,6 +14,7 @@ defmodule ReleaseTasks.Migrate do
 
     # Read config.exs if present
     config_exs = Path.join(config_dir, "config.exs")
+
     app_env =
       case File.exists?(config_exs) do
         true ->
@@ -26,6 +27,7 @@ defmodule ReleaseTasks.Migrate do
 
     # Read TOML config if present 
     config_toml = Path.join(config_dir, "config.toml")
+
     app_env =
       case File.exists?(config_toml) do
         true ->
