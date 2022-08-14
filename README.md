@@ -8,6 +8,7 @@ This is a liveview with auth demo useful for a starter application
 
 [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
 
+Caveats: NO Phoenix applications do not work with fly.io, even though the phoenix creator says they do. Best to use Azure, AWS, Heroku or Digital Ocean
 
 To setup your server:
 
