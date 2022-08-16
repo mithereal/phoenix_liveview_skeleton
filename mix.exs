@@ -63,7 +63,8 @@ defmodule Api.MixProject do
       {:scrivener_ecto, "~> 2.0"},
       {:distillery, "~> 2.1"},
       {:credo, "~> 1.5.0", only: [:dev, :test], runtime: false},
-      {:terminator, git: "https://github.com/data-twister/terminator.git"}
+      {:terminator, git: "https://github.com/data-twister/terminator.git"},
+      {:open_api_spex, "~> 3.4"}
     ]
   end
 

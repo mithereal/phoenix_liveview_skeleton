@@ -1,14 +1,12 @@
 # Api
 
-This is a liveview with auth demo useful for a starter application
+This is a liveview with auth demo useful for a starter application, the application is split between roles, terminator is used for managing roles, deployable via heroku or fly.io
 
 [![Build Status](https://travis-ci.com/mithereal/phoenix_liveview_skeleton.svg?branch=master)](https://travis-ci.com/mithereal/phoenix_liveview_skeleton)
 
 [![Inline docs](http://inch-ci.org/github/mithereal/phoenix_liveview_skeleton.svg)](http://inch-ci.org/github/mithereal/phoenix_liveview_skeleton)
 
 [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
-
-Caveats: NO Phoenix applications do not work with fly.io, even though the phoenix creator says they do. Best to use Azure, AWS, Heroku or Digital Ocean
 
 To setup your server:
 

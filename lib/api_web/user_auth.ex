@@ -124,6 +124,7 @@ defmodule ApiWeb.UserAuth do
   """
   def redirect_if_user_is_authenticated(conn, _opts) do
     if conn.assigns[:current_user] && conn.assigns[:user] do
+      IO.inspect(conn.assigns, label: "conn.assigns")
       user = get_session(conn, :user)
       role = :user
       Api.User.Server.Supervisor.start(user)
