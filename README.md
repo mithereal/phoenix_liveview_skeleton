@@ -13,7 +13,7 @@ To setup your server:
   * Create a user called platform
   * Install nginx
   * Install certbot (lets encrypt)
-  * a basic nginx configuration with websockets and environment vars is located in the server directory with forwarding to the phoenix app, you need to configure for custom application name, and/or after you run certbot enable the comment block if you need ssl.
+  * a basic nginx configuration with websockets and environment vars is located in the server directory with port forwarding 80:443 to the phoenix app, you need to configure for custom application name, and/or after you run certbot enable the comment block if you need ssl.
   * This configuration allows you to demo the app locally with url name forwarding to the local server to duplicate the prod app.
   
   
