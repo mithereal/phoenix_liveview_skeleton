@@ -13,7 +13,7 @@ To setup your server:
   * Create a user called platform
   * Install nginx
   * Install certbot (lets encrypt)
-  * a basic nginx configuration with websockets and environment vars is located in the server directory.
+  * a basic nginx configuration with websockets and environment vars is located in the server directory with forwarding to the phoenix app, you need to configure for custom application name, and after you run certbot enable the comment block.
   
   
 To start your Phoenix server:
