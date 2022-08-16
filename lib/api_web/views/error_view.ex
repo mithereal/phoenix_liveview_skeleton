@@ -14,7 +14,7 @@ defmodule ApiWeb.ErrorView do
     Phoenix.Controller.status_message_from_template(template)
   end
 
-  def render("error.json", message \\ "An Error Occurred") do
+  def render("error.json", message) do
     %{
       message: message
     }
