@@ -12,6 +12,20 @@ services:
       - 55432:5432
     volumes:
       - api-dev-db-data:/var/lib/postgresql/data
+  web:
+    image: nginx
+    volumes:
+      - ./etc/nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ./etc/nginx/cache/:/etc/nginx/cache
+      - /var/www/letsencrypt/:/var/www/letsencrypt/
+      - /var/log/:/var/log/
+    command: [ nginx-debug, '-g', 'daemon off;' ]
+    ports:
+      - "80:80"
+      - "443:443"
+    environment:
+      - NGINX_HOST=localhost
+      - NGINX_PORT=80
 networks:
   api-dev:
 volumes:

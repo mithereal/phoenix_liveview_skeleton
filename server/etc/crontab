@@ -1,1 +1,0 @@
-@reboot /home/platform/_build/prod/rel/prod/bin/prod start
