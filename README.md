@@ -1,6 +1,6 @@
 # Api
 
-This is a liveview with auth demo useful for a starter application, the application is split between roles, terminator is used for managing roles, deployable via heroku or fly.io
+This is a liveview with auth demo useful for a starter application, the application frontend is split between roles, terminator is used for managing roles, deployable via heroku or fly.io
 
 [![Build Status](https://travis-ci.com/mithereal/phoenix_liveview_skeleton.svg?branch=master)](https://travis-ci.com/mithereal/phoenix_liveview_skeleton)
 
