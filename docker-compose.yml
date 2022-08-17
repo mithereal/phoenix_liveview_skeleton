@@ -15,18 +15,23 @@ services:
   web:
     image: nginx
     volumes:
+      - ./etc/hosts:/etc/hosts
+      - ./etc/nginx/sites-enabled/:/etc/nginx/sites-enabled/
       - ./etc/nginx/nginx.conf:/etc/nginx/nginx.conf
       - ./etc/nginx/cache/:/etc/nginx/cache
+      - ./nginx/ssl/dhparam.pem:/etc/nginx/ssl/dhparam.pem
+      - ./nginx/certs/api.pem:/etc/nginx/api.pem # New Line!
       - /var/www/letsencrypt/:/var/www/letsencrypt/
       - /var/log/:/var/log/
-    command: [ nginx-debug, '-g', 'daemon off;' ]
+    command: /bin/bash -c "envsubst '$${SITE_DOMAIN}'< /etc/nginx/sites-enabled/backend.template > /etc/nginx/sites-enabled/backend.conf && exec nginx -g 'daemon off;'"
+    #command: [ nginx-debug, '-g', 'daemon off;' ]
     ports:
-      - "80:80"
-      - "443:443"
+      - 80:80
+      - 443:443
     environment:
       - NGINX_HOST=localhost
       - NGINX_PORT=80
-    network_mode: bridge
+      - SITE_DOMAIN=localhost
 networks:
   api:
 volumes:
