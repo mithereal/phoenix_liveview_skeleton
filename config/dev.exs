@@ -1,7 +1,13 @@
 import Config
 
 config :api, ApiWeb.Endpoint,
-       http: [ip: {0, 0, 0, 0}, port: 4000]
+       http: [ip: {0, 0, 0, 0}, port: 4000],
+       https: [
+         port: 4001,
+         cipher_suite: :strong,
+         keyfile: "priv/certs/localhost-key.pem",
+         certfile: "priv/certs/localhost.pem"
+       ]
 
 # Configure your database
 config :api, Api.Repo,

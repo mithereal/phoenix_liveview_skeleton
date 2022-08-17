@@ -3,4 +3,4 @@
 #<ip-address>    <hostname.domain.org>    <hostname>
 127.0.0.1      localhost.localdomain
 ::1            localhost.localdomain
-127.0.0.1      localhost    api
+127.0.0.1      localhost    phoenix.liveview.skeleton
