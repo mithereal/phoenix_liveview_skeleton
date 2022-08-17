@@ -22,7 +22,7 @@ services:
       - ./etc/nginx/nginx.conf:/etc/nginx/nginx.conf
       - ./etc/nginx/cache/:/etc/nginx/cache
       - ./nginx/ssl/dhparam.pem:/etc/nginx/ssl/dhparam.pem
-      - ./nginx/certs/api.pem:/etc/nginx/api.pem # New Line!
+      - ./nginx/certs/:/etc/nginx/certs/
       - /var/www/letsencrypt/:/var/www/letsencrypt/
       - /var/log/:/var/log/
    # command: /bin/bash -c "envsubst '$${SITE_DOMAIN}'< /etc/nginx/sites-enabled/backend.template > /etc/nginx/sites-enabled/backend.conf && exec nginx -g 'daemon off;'"

@@ -1,5 +1,8 @@
 import Config
 
+config :api, ApiWeb.Endpoint,
+       http: [ip: {0, 0, 0, 0}, port: 4000]
+
 # Configure your database
 config :api, Api.Repo,
   username: "postgres",
