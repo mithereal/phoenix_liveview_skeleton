@@ -18,14 +18,12 @@ services:
     container_name: webserver_nginx
     volumes:
       - ./etc/hosts:/etc/hosts
-      - ./etc/nginx/sites-enabled/:/etc/nginx/sites-enabled/
       - ./etc/nginx/nginx.conf:/etc/nginx/nginx.conf
       - ./etc/nginx/cache/:/etc/nginx/cache
       - ./nginx/ssl/dhparam.pem:/etc/nginx/ssl/dhparam.pem
       - ./nginx/certs/:/etc/nginx/certs/
       - /var/www/letsencrypt/:/var/www/letsencrypt/
       - /var/log/:/var/log/
-   # command: /bin/bash -c "envsubst '$${SITE_DOMAIN}'< /etc/nginx/sites-enabled/backend.template > /etc/nginx/sites-enabled/backend.conf && exec nginx -g 'daemon off;'"
     command: [ nginx-debug, '-g', 'daemon off;' ]
     ports:
       - 80:80
