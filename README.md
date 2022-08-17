@@ -15,6 +15,8 @@ To setup your server:
   * Install certbot (lets encrypt)
   * a basic nginx configuration with websockets and environment vars is located in the server directory with port forwarding 80:443 to the phoenix app, you need to configure for custom application name, and/or after you run certbot enable the comment block if you need ssl.
   * This configuration allows you to demo the app locally with url name forwarding to the local server to duplicate the prod app.
+  * You can install Self Signed Certificates into the browser by running 
+    phoenix_liveview_skeleton//etc/certs/mkcert --install
   
   
 To start your Phoenix server:
