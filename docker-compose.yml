@@ -8,7 +8,7 @@ services:
       - POSTGRES_PASSWORD=postgres
       - POSTGRES_DB=phoenix_liveview_skeleton
     networks:
-      - phoenix_liveview_skeleton
+      - default
     ports:
       - 55432:5432
     volumes:
@@ -27,7 +27,7 @@ services:
       - /var/log/:/var/log/
     command: [ nginx-debug, '-g', 'daemon off;' ]
     networks:
-      - phoenix_liveview_skeleton
+      - default
     ports:
       - 80:80
       - 443:443
@@ -38,7 +38,7 @@ services:
     container_name: release_phoenix_liveview_skeleton
     build: .
     networks:
-      - phoenix_liveview_skeleton
+      - default
     ports:
       - "4444:4444"
     environment:
@@ -47,6 +47,6 @@ services:
       - PHOENIX_HOSTNAME="localhost"
       - PORT=4444
 networks:
-  phoenix_liveview_skeleton:
+  default:
 volumes:
   phoenix_liveview_skeleton-db-data:
