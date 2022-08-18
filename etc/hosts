@@ -4,3 +4,4 @@
 127.0.0.1      localhost.localdomain
 ::1            localhost.localdomain
 127.0.0.1      localhost    phoenix.liveview.skeleton
+127.0.0.1      localhost    prod
