@@ -40,8 +40,8 @@ services:
     networks:
       - phoenix_liveview_skeleton
     ports:
-      - "4000:4000"
-      - "4001:4001"
+      - "4443:4443"
+      - "4444:4444"
     environment:
       - SECRET_KEY_BASE="salt goes here"
       - DATABASE_URL="ecto://postgres:postgres@localhost/phoenix_liveview_skeleton"
