@@ -3,5 +3,7 @@
 #<ip-address>    <hostname.domain.org>    <hostname>
 127.0.0.1      localhost.localdomain
 ::1            localhost.localdomain
-127.0.0.1      localhost    dev
+127.0.0.1      dev
+::1            dev
 127.0.0.1      prod
+::1            prod
