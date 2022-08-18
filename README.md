@@ -8,6 +8,14 @@ This is a liveview with auth demo useful for a starter application, the applicat
 
 [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
 
+Enable ipv6 support on docker
+Edit /etc/docker/daemon.json, set the ipv6 key to true and the fixed-cidr-v6 key to your IPv6 subnet. In this example we are setting it to 2001:db8:1::/64.
+
+{
+"ipv6": true,
+"fixed-cidr-v6": "2001:db8:1::/64"
+}
+
 To setup your server:
 
   * Create a user called platform
