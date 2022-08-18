@@ -26,16 +26,20 @@ if config_env() == :prod do
       You can generate one by calling: mix phx.gen.secret
       """
 
-# IMPORTANT: Get the app_name we're using uncomment before deploying to fly.io
-#  app_name =
-#    System.get_env("FLY_APP_NAME") ||
-#      raise "FLY_APP_NAME not available"
-#
-#  app_url = "#{app_name}.fly.dev"
+  # IMPORTANT: Get the app_name we're using uncomment before deploying to fly.io
+  #  app_name =
+  #    System.get_env("FLY_APP_NAME") ||
+  #      raise "FLY_APP_NAME not available"
+  #
+  #  app_url = "#{app_name}.fly.dev"
+
+  app_name = System.get_env("FLY_APP_NAME") || nil
 
   app_url =
-      System.get_env("PHOENIX_APP_URL") ||
-       "localhost"
+    case is_nil(app_name) do
+      true -> System.get_env("PHOENIX_APP_URL") || "localhost"
+      false -> "#{app_name}.fly.dev"
+    end
 
   config :api, ApiWeb.Endpoint,
     # IMPORTANT: tell our app about the host name to use when generating URLs
