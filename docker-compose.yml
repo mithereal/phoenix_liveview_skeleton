@@ -45,8 +45,8 @@ services:
     environment:
       - SECRET_KEY_BASE="salt goes here"
       - DATABASE_URL="ecto://postgres:postgres@localhost/phoenix_liveview_skeleton"
-      - PHOENIX_APP_URL="localhost"
-      - PORT=4444
+      - PHOENIX_HOSTNAME="localhost"
+      - PORT=4443
 networks:
   phoenix_liveview_skeleton:
 volumes:

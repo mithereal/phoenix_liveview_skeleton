@@ -30,7 +30,7 @@ if config_env() == :prod do
 
   app_url =
     case is_nil(app_name) do
-      true -> System.get_env("PHOENIX_APP_URL") || raise "PHOENIX_APP_URL not available"
+      true -> System.get_env("PHOENIX_HOSTNAME") || raise "PHOENIX_HOSTNAME not available"
       false -> "#{app_name}.fly.dev"
     end
 
