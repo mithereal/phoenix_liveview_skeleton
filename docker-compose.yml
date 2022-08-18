@@ -34,8 +34,8 @@ services:
     environment:
       - NGINX_HOST=localhost
       - NGINX_PORT=80
-  project:
-    container_name: project_phoenix_liveview_skeleton
+  release:
+    container_name: release_phoenix_liveview_skeleton
     build: .
     networks:
       - phoenix_liveview_skeleton
