@@ -13,7 +13,7 @@ services:
       - 55432:5432
     volumes:
       - api-dev-db-data:/var/lib/postgresql/data
-  router:
+  proxy:
     image: nginx
     container_name: webserver_nginx
     volumes:
