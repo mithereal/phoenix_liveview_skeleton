@@ -5,8 +5,8 @@ config :api, ApiWeb.Endpoint,
        https: [
          port: 4001,
          cipher_suite: :strong,
-         keyfile: "priv/certs/localhost-key.pem",
-         certfile: "priv/certs/localhost.pem"
+         keyfile: "priv/certs/self_signed-key.pem",
+         certfile: "priv/certs/self_signed.pem"
        ]
 
 # Configure your database

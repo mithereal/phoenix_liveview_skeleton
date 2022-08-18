@@ -6,13 +6,13 @@ services:
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
-      - POSTGRES_DB=api_dev
+      - POSTGRES_DB=phoenix_liveview_skeleton
     networks:
-      - api
+      - phoenix_liveview_skeleton
     ports:
       - 55432:5432
     volumes:
-      - api-dev-db-data:/var/lib/postgresql/data
+      - phoenix_liveview_skeleton-db-data:/var/lib/postgresql/data
   proxy:
     image: nginx
     container_name: proxy_nginx
@@ -27,7 +27,7 @@ services:
       - /var/log/:/var/log/
     command: [ nginx-debug, '-g', 'daemon off;' ]
     networks:
-      - api
+      - phoenix_liveview_skeleton
     ports:
       - 80:80
       - 443:443
@@ -38,11 +38,11 @@ services:
     container_name: project_phoenix_liveview_skeleton
     build: .
     networks:
-      - api
+      - phoenix_liveview_skeleton
     ports:
       - "4000:4000"
       - "4001:4001"
 networks:
-  api:
+  phoenix_liveview_skeleton:
 volumes:
-  api-dev-db-data:
+  phoenix_liveview_skeleton-db-data:
