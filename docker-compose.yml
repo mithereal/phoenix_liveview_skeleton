@@ -13,41 +13,48 @@ services:
       - 55432:5432
     volumes:
       - phoenix_liveview_skeleton-db-data:/var/lib/postgresql/data
-#  release:
-#    container_name: release_phoenix_liveview_skeleton
-#    build: .
-#    networks:
-#      - default
-#    ports:
-#      - "4444:4444"
-#    environment:
-#      - SECRET_KEY_BASE="salt goes here"
-#      - DATABASE_URL="ecto://postgres:postgres@localhost/phoenix_liveview_skeleton"
-#      - PHOENIX_HOSTNAME="localhost"
-#      - PORT=4444
-#  proxy:
-#    image: nginx
-#    depends_on:
-#      - release
-#    container_name: proxy_nginx
-#    volumes:
-#      - .:/code
-#      - ./etc/hosts:/etc/hosts
-#      - ./etc/nginx/nginx.conf:/etc/nginx/nginx.conf
-#      - ./etc/nginx/cache/:/etc/nginx/cache
-#      - ./etc/nginx/ssl/dhparam.pem:/etc/nginx/ssl/dhparam.pem
-#      - ./etc/nginx/certs/:/etc/nginx/certs/
-#      - /var/www/letsencrypt/:/var/www/letsencrypt/
-#      - /var/log/:/var/log/
-#    command: [ nginx-debug, '-g', 'daemon off;' ]
-#    networks:
-#      - default
-#    ports:
-#      - 80:80
-#      - 443:443
-#    environment:
-#      - NGINX_HOST=localhost
-#      - NGINX_PORT=80
+  release:
+    container_name: release_phoenix_liveview_skeleton
+    build: .
+    networks:
+      - default
+    ports:
+      - "4444:4444"
+    healthcheck:
+      test: [ "CMD-SHELL", "wget http://localhost:4444/ --delete-after --tries=3 2> /dev/null" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    environment:
+      - SECRET_KEY_BASE="salt goes here"
+      - DATABASE_URL="ecto://postgres:postgres@localhost/phoenix_liveview_skeleton"
+      - PHOENIX_HOSTNAME="localhost"
+      - PORT=4444
+  proxy:
+    image: nginx
+    depends_on:
+      - release:
+        condition: service_healthy
+    restart: "yes"
+    container_name: proxy_nginx
+    volumes:
+      - .:/code
+      - ./etc/hosts:/etc/hosts
+      - ./etc/nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ./etc/nginx/cache/:/etc/nginx/cache
+      - ./etc/nginx/ssl/dhparam.pem:/etc/nginx/ssl/dhparam.pem
+      - ./etc/nginx/certs/:/etc/nginx/certs/
+      - /var/www/letsencrypt/:/var/www/letsencrypt/
+      - /var/log/:/var/log/
+    command: [ nginx-debug, '-g', 'daemon off;' ]
+    networks:
+      - default
+    ports:
+      - 80:80
+      - 443:443
+    environment:
+      - NGINX_HOST=localhost
+      - NGINX_PORT=80
 networks:
   default:
 volumes:
