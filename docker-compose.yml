@@ -35,7 +35,11 @@ services:
     depends_on:
       - release:
         condition: service_healthy
-    restart: "yes"
+    restart_policy:
+      condition: on-failure
+      delay: 3s
+      max_attempts: 5
+      window: 60s
     container_name: proxy_nginx
     volumes:
       - .:/code
