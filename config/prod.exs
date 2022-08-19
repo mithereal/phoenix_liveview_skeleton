@@ -14,8 +14,8 @@ hostname = System.get_env("PHOENIX_HOSTNAME") || "localhost"
 config :api, ApiWeb.Endpoint,
   url: [host: hostname, port: 4444],
   force_ssl: [rewrite_on: [:x_forwarded_proto]],
-  cache_static_manifest: "priv/static/cache_manifest.json",
-  socket_options: [:inet6]
+  cache_static_manifest: "priv/static/cache_manifest.json"
+#  , socket_options: [:inet6] ## uncomment for fly.io
 
 # Do not print debug messages in production
 config :logger, level: :info
