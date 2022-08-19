@@ -15,7 +15,7 @@ services:
       - phoenix_liveview_skeleton-db-data:/var/lib/postgresql/data
   release:
     container_name: release_phoenix_liveview_skeleton
-    build: .
+    build: Dockerfile-dev
     networks:
       - default
     ports:
