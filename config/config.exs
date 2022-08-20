@@ -43,6 +43,8 @@ config :logger, :console,
 # Use Jason for JSON parsing in Phoenix
 config :phoenix, :json_library, Jason
 
+config :dart_sass, :version, "1.49.11"
+
 config :esbuild,
   version: "0.12.18",
   default: [
@@ -69,8 +71,8 @@ config :tailwind,
   default: [
     args: ~w(
       --config=tailwind.config.js
-      --input=css/base.css
-      --output=../priv/static/assets/base.css
+      --input=css/root.css
+      --output=../priv/static/assets/root.css
     ),
     cd: Path.expand("../assets", __DIR__)
   ],
