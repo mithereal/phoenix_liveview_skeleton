@@ -46,15 +46,15 @@ config :phoenix, :json_library, Jason
 config :dart_sass,
        version: "1.49.11",
        default: [
-         args: ~w(css/root.scss ../priv/static/assets/root.css.tailwind),
+         args: ~w(css/root.scss css/root.css.tailwind),
          cd: Path.expand("../assets", __DIR__)
        ],
        user: [
-         args: ~w(css/user.scss ../priv/static/assets/user.css.tailwind),
+         args: ~w(css/user.scss css/user.css.tailwind),
          cd: Path.expand("../assets", __DIR__)
        ],
        admin: [
-         args: ~w(css/admin.scss ../priv/static/assets/admin.css.tailwind),
+         args: ~w(css/admin.scss css/admin.css.tailwind),
          cd: Path.expand("../assets", __DIR__)
        ]
 
@@ -62,19 +62,19 @@ config :esbuild,
   version: "0.12.18",
   default: [
     args:
-      ~w(js/root.js --bundle --target=es2016 --outdir=../priv/static/assets --external:/fonts/* --external:/images/*),
+      ~w(js/root.js --bundle --target=es2017 --outdir=../priv/static/assets --external:/fonts/* --external:/images/*),
     cd: Path.expand("../assets", __DIR__),
     env: %{"NODE_PATH" => Path.expand("../deps", __DIR__)}
   ],
   user: [
     args:
-      ~w(js/user.js --bundle --target=es2016 --outdir=../priv/static/assets --external:/fonts/* --external:/images/*),
+      ~w(js/user.js --bundle --target=es2017 --outdir=../priv/static/assets --external:/fonts/* --external:/images/*),
     cd: Path.expand("../assets", __DIR__),
     env: %{"NODE_PATH" => Path.expand("../deps", __DIR__)}
   ],
   admin: [
     args:
-      ~w(js/admin.js --bundle --target=es2016 --outdir=../priv/static/assets --external:/fonts/* --external:/images/*),
+      ~w(js/admin.js --bundle --target=es2017 --outdir=../priv/static/assets --external:/fonts/* --external:/images/*),
     cd: Path.expand("../assets", __DIR__),
     env: %{"NODE_PATH" => Path.expand("../deps", __DIR__)}
   ]
