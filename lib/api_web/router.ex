@@ -158,6 +158,13 @@ defmodule ApiWeb.Router do
     live("/", PageLive)
   end
 
+
+  scope "/page", ApiWeb do
+    pipe_through([:browser])
+
+    get("/privacy", PageController, :privacy)
+    get("/terms", PageController, :terms)
+  end
   # Other scopes may use custom stacks.
 
   # Enables LiveDashboard only for development
