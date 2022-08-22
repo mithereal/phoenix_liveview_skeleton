@@ -28,9 +28,24 @@ import {keepAlive} from "./utils";
    });
  }
 
+window.Alpine = Alpine;
+Alpine.start();
 
 const csrfToken = document.querySelector("meta[name='csrf-token']").getAttribute("content")
-const liveSocket = new LiveSocket("/live", Socket, {params: {_csrf_token: csrfToken}})
+let liveSocket = new LiveSocket("/live", Socket, {params: {_csrf_token: csrfToken}})
+
+let hooks = {};
+let liveSocket = new LiveSocket("/live", Socket, {
+    params: { _csrf_token: csrfToken },
+    hooks: hooks,
+    dom: {
+        onBeforeElUpdated(from, to) {
+            if (from._x_dataStack) {
+                window.Alpine.clone(from, to);
+            }
+        },
+    },
+});
 
 window.addEventListener("phx:page-loading-start", info => NProgress.start())
 window.addEventListener("phx:page-loading-stop", info => NProgress.done())
