@@ -3,7 +3,10 @@
   "description": "Phoenix Liveview Skeleton",
   "license": "MIT",
   "scripts": {
-    "deploy": "webpack --mode production",
+    "deploy-default": "NODE_ENV=production postcss css/root.css -o ../priv/static/assets/root.css",
+    "deploy-admin": "NODE_ENV=production postcss css/admin.css -o ../priv/static/assets/admin.css",
+    "deploy-user": "NODE_ENV=production postcss css/user.css -o ../priv/static/assets/user.css",
+    "webpack-deploy": "webpack --mode production",
     "watch": "webpack --mode development --watch"
   },
   "dependencies": {
