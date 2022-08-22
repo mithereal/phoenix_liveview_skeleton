@@ -28,6 +28,8 @@
      <%= render "_dark_mode.js.html" %>
      <%= render "_apple_touch_header.html", assigns %>
 
+      <style>[x-cloak] { display: none !important; }</style>
+
     <script defer phx-track-static type="text/javascript" src="<%= Routes.static_path(@conn, "/js/root.js") %>"></script>
   </head>
   <body>
