@@ -7,7 +7,7 @@ defmodule Api.MixProject do
       version: "1.0.0",
       elixir: "~> 1.12",
       elixirc_paths: elixirc_paths(Mix.env()),
-      compilers: [:gettext] ++ Mix.compilers(),
+      compilers: Mix.compilers(),
       start_permanent: Mix.env() == :prod,
       aliases: aliases(),
       deps: deps()
@@ -76,7 +76,7 @@ defmodule Api.MixProject do
   # See the documentation for `Mix` for more info on aliases.
   defp aliases do
     [
-      setup: ["deps.get", "ecto.setup", "cmd npm install --prefix assets"],
+      setup: ["deps.get", "ecto.setup", "cmd npm install --prefix assets", "assets.build"],
       "ecto.setup": [
         "ecto.create",
         "ecto.migrate",
@@ -84,7 +84,16 @@ defmodule Api.MixProject do
       ],
       "ecto.reset": ["ecto.drop", "ecto.setup"],
       test: ["ecto.create --quiet", "ecto.migrate --quiet", "test"],
-      "assets.deploy": ["tailwind default --minify", "esbuild default --minify", "phx.digest"]
+      "assets.build": [
+        "esbuild default",
+        "sass default",
+        "tailwind default",
+        "sass user",
+        "tailwind user",
+        "sass admin",
+        "tailwind admin"
+      ],
+      "assets.deploy": ["esbuild default --minify", "sass default", "tailwind default --minify", "sass user", "tailwind user --minify", "sass admin", "tailwind admin --minify","phx.digest"]
     ]
   end
 end

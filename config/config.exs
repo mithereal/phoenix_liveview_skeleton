@@ -43,7 +43,20 @@ config :logger, :console,
 # Use Jason for JSON parsing in Phoenix
 config :phoenix, :json_library, Jason
 
-config :dart_sass, :version, "1.49.11"
+config :dart_sass,
+       version: "1.49.11",
+       default: [
+         args: ~w(css/root.scss ../priv/static/assets/root.css.tailwind),
+         cd: Path.expand("../assets", __DIR__)
+       ],
+       user: [
+         args: ~w(css/user.scss ../priv/static/assets/user.css.tailwind),
+         cd: Path.expand("../assets", __DIR__)
+       ],
+       admin: [
+         args: ~w(css/admin.scss ../priv/static/assets/admin.css.tailwind),
+         cd: Path.expand("../assets", __DIR__)
+       ]
 
 config :esbuild,
   version: "0.12.18",
@@ -71,7 +84,7 @@ config :tailwind,
   default: [
     args: ~w(
       --config=tailwind.config.js
-      --input=css/root.css
+      --input=css/root.css.tailwind
       --output=../priv/static/assets/root.css
     ),
     cd: Path.expand("../assets", __DIR__)
@@ -79,7 +92,7 @@ config :tailwind,
   user: [
     args: ~w(
       --config=tailwind.config.js
-      --input=css/user.css
+      --input=css/user.css.tailwind
       --output=../priv/static/assets/user.css
     ),
     cd: Path.expand("../assets", __DIR__)
@@ -87,7 +100,7 @@ config :tailwind,
   admin: [
     args: ~w(
       --config=tailwind.config.js
-      --input=css/admin.css
+      --input=css/admin.css.tailwind
       --output=../priv/static/assets/admin.css
     ),
     cd: Path.expand("../assets", __DIR__)
