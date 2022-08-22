@@ -17,13 +17,7 @@
   <%= label f, :email, class="text-gray-700" do
     "Email Address"
   end %>
-     <input
-             type="email"
-             name="email"
-             id="email"
-             class="mt-2 py-2 border-gray-300 focus:outline-none focus:ring-0 focus:border-gray-300 rounded text-sm text-gray-900"
-             placeholder="Enter your email"
-     >
+     <%= email_input f, :email, [required: true, class: "mt-2 py-2 border-gray-300 focus:outline-none focus:ring-0 focus:border-gray-300 rounded text-sm text-gray-900", placeholder: "Enter your email"] %>
  </div>
 
 <div class="my-4 flex items-center justify-end space-x-4">

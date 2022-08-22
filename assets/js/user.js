@@ -12,10 +12,15 @@ import "../css/user.css"
 //     import socket from "./socket"
 //
 import "phoenix_html"
+import 'alpinejs';
+import '@ryangjchandler/spruce'
+import "phoenix_html"
 import {Socket} from "phoenix"
 
 import NProgress from "nprogress"
 import {LiveSocket} from "phoenix_live_view"
+
+import {keepAlive} from "./utils";
 
  if ('serviceWorker' in navigator) {
    window.addEventListener('load', () => {
@@ -32,6 +37,7 @@ window.addEventListener("phx:page-loading-stop", info => NProgress.done())
 
 // connect if there are any LiveViews on the page
 liveSocket.connect()
+keepAlive()
 
 // expose liveSocket on window for web console debug logs and latency simulation:
 // >> liveSocket.enableDebug()

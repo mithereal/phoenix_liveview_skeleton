@@ -27,6 +27,7 @@ defmodule Api.Accounts.User do
   also be very expensive to hash for certain algorithms.
   """
   def registration_changeset(user, attrs) do
+    IO.inspect(attrs, label: "attrs")
     changeset =
       user
       |> cast(attrs, [:email, :password])
