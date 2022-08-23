@@ -62,19 +62,19 @@ config :esbuild,
   version: "0.12.18",
   default: [
     args:
-      ~w(js/root.js --bundle --target=es2017 --outdir=../priv/static/assets --external:/fonts/* --external:/images/*),
+      ~w(js/root.js --bundle --target=es2017 --outdir=../priv/static/js --external:/fonts/* --external:/images/*),
     cd: Path.expand("../assets", __DIR__),
     env: %{"NODE_PATH" => Path.expand("../deps", __DIR__)}
   ],
   user: [
     args:
-      ~w(js/user.js --bundle --target=es2017 --outdir=../priv/static/assets --external:/fonts/* --external:/images/*),
+      ~w(js/user.js --bundle --target=es2017 --outdir=../priv/static/js --external:/fonts/* --external:/images/*),
     cd: Path.expand("../assets", __DIR__),
     env: %{"NODE_PATH" => Path.expand("../deps", __DIR__)}
   ],
   admin: [
     args:
-      ~w(js/admin.js --bundle --target=es2017 --outdir=../priv/static/assets --external:/fonts/* --external:/images/*),
+      ~w(js/admin.js --bundle --target=es2017 --outdir=../priv/static/js --external:/fonts/* --external:/images/*),
     cd: Path.expand("../assets", __DIR__),
     env: %{"NODE_PATH" => Path.expand("../deps", __DIR__)}
   ]
@@ -85,7 +85,7 @@ config :tailwind,
     args: ~w(
       --config=tailwind.config.js
       --input=css/root.css.tailwind
-      --output=../priv/static/assets/root.css
+      --output=../priv/static/css/root.css
     ),
     cd: Path.expand("../assets", __DIR__)
   ],
@@ -93,7 +93,7 @@ config :tailwind,
     args: ~w(
       --config=tailwind.config.js
       --input=css/user.css.tailwind
-      --output=../priv/static/assets/user.css
+      --output=../priv/static/css/user.css
     ),
     cd: Path.expand("../assets", __DIR__)
   ],
@@ -101,7 +101,7 @@ config :tailwind,
     args: ~w(
       --config=tailwind.config.js
       --input=css/admin.css.tailwind
-      --output=../priv/static/assets/admin.css
+      --output=../priv/static/css/admin.css
     ),
     cd: Path.expand("../assets", __DIR__)
   ]
